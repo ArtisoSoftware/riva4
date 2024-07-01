@@ -37,6 +37,7 @@
                 font-size: 20px;
                 border-radius: 5px;
               "
+              @click="goToWelcome()"
             />
           </div>
           <div class="q-pa-md" style="position: absolute; bottom: 0; right: 0">
@@ -48,7 +49,13 @@
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+import { useRouter } from "vue-router";
+const router = useRouter();
+const goToWelcome = () => {
+  router.push("/welcome");
+};
+</script>
 
 <style lang="scss" scoped>
 .loginBg {
