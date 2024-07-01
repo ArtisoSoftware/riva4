@@ -17,7 +17,20 @@
       </div>
     </div>
     <hr style="margin: 0px" />
-    <div>xx</div>
+    <div>
+      <div class="q-pa-md">
+        <div class="row">
+          <div>
+            <img
+              src="../../public/images/vamenu.svg"
+              style="width: 130%"
+              alt=""
+            />
+          </div>
+          <div class="q-px-md">VA</div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
