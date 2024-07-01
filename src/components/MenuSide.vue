@@ -18,7 +18,7 @@
         class="rounded-borders"
         style="width: 90%; background-color: #0f4c8a; margin-left: 5%"
       >
-        <q-expansion-item>
+        <q-expansion-item disable>
           <template v-slot:header>
             <q-item-section avatar>
               <img src="../../public/images/rimenu.svg" alt="" />
@@ -28,7 +28,7 @@
           </template>
         </q-expansion-item>
         <q-separator />
-        <q-expansion-item>
+        <q-expansion-item v-model="vaExpanded">
           <template v-slot:header>
             <q-item-section avatar>
               <img src="../../public/images/vamenu.svg" alt="" />
@@ -41,6 +41,7 @@
           <div class="q-px-lg q-py-sm">Economics</div>
           <div class="q-px-lg q-py-sm">Economics group</div>
           <div class="q-px-lg q-py-sm">Exporting section</div>
+
           <div class="q-px-lg subTopic">Page Data</div>
           <div class="q-px-lg q-py-sm">GVC relationships</div>
           <div class="q-px-lg q-py-sm">Structure of value added</div>
@@ -50,7 +51,7 @@
           <div class="q-px-lg q-py-sm">Country briefs</div>
         </q-expansion-item>
         <q-separator />
-        <q-expansion-item>
+        <q-expansion-item v-model="userExpanded">
           <template v-slot:header>
             <q-item-section avatar>
               <img src="../../public/images/usermenu.svg" alt="" />
@@ -58,21 +59,70 @@
 
             <q-item-section> User </q-item-section>
           </template>
-          <div class="q-px-lg q-py-sm">Member</div>
-          <div class="q-px-lg q-py-sm">Staff</div>
+          <div class="q-px-lg q-py-sm cursor-pointer">Member</div>
+          <div
+            class="q-px-lg q-py-sm cursor-pointer"
+            :class="{ selectedMenu: menu == 32 }"
+          >
+            Staff
+          </div>
         </q-expansion-item>
       </q-list>
-      <div style="width: 90%; background-color: #0f4c8a; margin-left: 5%">
-        <div class="row q-pl-md q-pt-md">
-          <div><img src="../../public/images/exit.svg" alt="" /></div>
-          <div style="padding-left: 37px; height: 35 px">Log out</div>
+      <div>
+        <div
+          style="
+            width: 240px;
+            background-color: #0f4c8a;
+            margin-left: 13px;
+            position: absolute;
+            bottom: 10px;
+          "
+        >
+          <div class="row q-pl-md q-pt-md">
+            <div><img src="../../public/images/exit.svg" alt="" /></div>
+            <div style="padding-left: 37px; height: 35 px">Log out</div>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+import { ref, watch } from "vue";
+import { defineProps } from "vue";
+
+const vaExpanded = ref(false);
+const userExpanded = ref(false);
+// รับ prop จาก parent
+const props = defineProps({
+  menu: {
+    type: Number,
+    required: true,
+  },
+  openMenu: {
+    type: Number,
+    required: true,
+  },
+});
+if (props.openMenu == 3) {
+  userExpanded.value = true;
+} else if (props.openMenu == 2) {
+  vaExpanded.value = true;
+}
+
+watch(vaExpanded, (newVal) => {
+  if (newVal) {
+    userExpanded.value = false;
+  }
+});
+
+watch(userExpanded, (newVal) => {
+  if (newVal) {
+    vaExpanded.value = false;
+  }
+});
+</script>
 
 <style lang="scss" scoped>
 .menuLeft {
@@ -83,7 +133,10 @@
   font-size: 16 px;
 }
 .subTopic {
-  color: #acacac;
+  color: #80aedc;
   font-size: 14px;
+}
+.selectedMenu {
+  color: #e0d04e;
 }
 </style>
