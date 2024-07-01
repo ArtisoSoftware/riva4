@@ -32,6 +32,13 @@
           <div class="q-px-lg q-py-sm">Economics</div>
           <div class="q-px-lg q-py-sm">Economics group</div>
           <div class="q-px-lg q-py-sm">Exporting section</div>
+          <div class="q-px-lg subTopic">Page Data</div>
+          <div class="q-px-lg q-py-sm">GVC relationships</div>
+          <div class="q-px-lg q-py-sm">Structure of value added</div>
+          <div class="q-px-lg q-py-sm">Participation in GVCs</div>
+          <div class="q-px-lg q-py-sm">Backward linkages</div>
+          <div class="q-px-lg q-py-sm">Forward linkages</div>
+          <div class="q-px-lg q-py-sm">Country briefs</div>
         </q-expansion-item>
         <q-separator />
         <q-expansion-item>
