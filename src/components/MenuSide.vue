@@ -3,6 +3,15 @@
     <div class="q-pa-md text-center">
       <img src="../../public//images/rivalogo.svg" alt="" />
     </div>
+    <div style="text-align: center">
+      <img src="../../public/images/profile.png" alt="" />
+    </div>
+    <div class="row justify-center q-pb-md">
+      <div style="font-size: 16px">Lisa</div>
+      <div class="q-px-sm" style="padding-top: 3px">
+        <img src="../../public/images/editProfile.svg" alt="" />
+      </div>
+    </div>
     <div>
       <q-list
         bordered
@@ -53,6 +62,12 @@
           <div class="q-px-lg q-py-sm">Staff</div>
         </q-expansion-item>
       </q-list>
+      <div style="width: 90%; background-color: #0f4c8a; margin-left: 5%">
+        <div class="row q-pl-md q-pt-md">
+          <div><img src="../../public/images/exit.svg" alt="" /></div>
+          <div style="padding-left: 37px; height: 35 px">Log out</div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
