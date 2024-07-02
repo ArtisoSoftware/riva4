@@ -24,13 +24,23 @@
       >
         <div class="col q-px-lg">{{ item.username }}</div>
         <div style="width: 15%" class="text-center">
-          <u class="cursor-pointer">Reset password</u>
+          <u
+            class="cursor-pointer"
+            @click="resetPassword(item.username, item.staffID)"
+            >Reset password</u
+          >
         </div>
         <div style="width: 10%" class="text-center">
-          <q-icon name="fa-solid fa-trash" class="cursor-pointer" />
+          <q-icon
+            name="fa-solid fa-trash"
+            class="cursor-pointer"
+            @click="deleteStaff(item.staffID)"
+          />
         </div>
       </div>
     </div>
+
+    <!-- Dialog for add new staff -->
     <q-dialog v-model="isAddNew" persistent>
       <q-card class="newStaffDia">
         <div class="headBar q-px-md">Add new starff</div>
@@ -61,6 +71,62 @@
         </div>
       </q-card>
     </q-dialog>
+
+    <!-- Dialog for reset password -->
+    <q-dialog v-model="isReset" persistent>
+      <q-card class="newStaffDia">
+        <div class="headBar q-px-md">Reset password</div>
+        <div class="justify-center row q-pt-md">
+          <div class="q-pt-sm">Username</div>
+          <div style="width: 25px"></div>
+          <div><q-input v-model="usernameReset" outlined dense readonly /></div>
+        </div>
+        <div class="justify-center row q-pt-md">
+          <div class="q-pt-sm">Password</div>
+          <div style="width: 25px"></div>
+          <div><q-input v-model="passwordReset" outlined dense /></div>
+        </div>
+        <div class="q-px-md row justify-center q-pt-md">
+          <div>
+            <q-btn
+              label="Cancel"
+              no-caps
+              class="CancelBtn"
+              outline
+              @click="CancelResetBtn"
+            />
+          </div>
+          <div style="width: 25px"></div>
+          <div>
+            <q-btn
+              label="Save"
+              no-caps
+              class="CtaBtn"
+              @click="resetPasswordBtn()"
+            />
+          </div>
+        </div>
+      </q-card>
+    </q-dialog>
+
+    <!-- //Confirm delete staff -->
+    <q-dialog v-model="isConfirmDel" persistent>
+      <q-card>
+        <q-card-section class="row items-center">
+          <span class="q-ml-sm">Do you want to delete this staff?</span>
+        </q-card-section>
+
+        <q-card-actions align="right">
+          <q-btn flat label="Cancel" color="primary" v-close-popup />
+          <q-btn
+            flat
+            label="Yes, delete it"
+            color="primary"
+            @click="deleteStaffBtn()"
+          />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
   </div>
 </template>
 
@@ -68,14 +134,15 @@
 import MenuSide from "../components/MenuSide.vue";
 import { serverSetup } from "./server.js";
 import { ref } from "vue";
-import { Notify } from "quasar";
+import { Notify, LocalStorage } from "quasar";
 import axios from "axios";
 const { serverData } = serverSetup();
 
+// Add new staff
 const isAddNew = ref(false);
 const username = ref("");
 const password = ref("");
-const userList = ref([]);
+
 const AddNewStaffBtn = () => {
   isAddNew.value = true;
   username.value = "";
@@ -99,7 +166,7 @@ const saveNewStaff = async () => {
   const url = serverData.value + "cc/addNewStaff.php";
   const dataSent = {
     username: username.value,
-    password: password.value,
+    password: password.value.toString(),
   };
   const res = await axios.post(url, JSON.stringify(dataSent));
   if (res.data == "username exists") {
@@ -118,15 +185,100 @@ const saveNewStaff = async () => {
       position: "top",
       icon: "fa-solid fa-circle-check",
     });
+    loadUser();
   }
 };
 
+//Reset password
+const isReset = ref(false);
+const resetData = ref({
+  username: "",
+  staffID: 0,
+});
+const usernameReset = ref("");
+const passwordReset = ref("");
+
+const resetPassword = (username, ID) => {
+  resetData.value.username = username;
+  resetData.value.staffID = ID;
+  usernameReset.value = username;
+  isReset.value = true;
+  passwordReset.value = "";
+};
+
+const resetPasswordBtn = async () => {
+  if (!passwordReset.value) {
+    Notify.create({
+      message: "Password is required",
+      color: "negative",
+      icon: "fa-solid fa-circle-exclamation",
+      position: "top",
+    });
+    return;
+  }
+  const url = serverData.value + "cc/resetPasswordStaff.php";
+  const dataSend = {
+    staffID: resetData.value.staffID,
+    password: passwordReset.value,
+  };
+  const res = await axios.post(url, JSON.stringify(dataSend));
+  if (res.data == "reset password complete") {
+    Notify.create({
+      message: "Reset password finish",
+      color: "positive",
+      position: "top",
+      icon: "fa-solid fa-circle-check",
+    });
+    isReset.value = false;
+  }
+};
+
+const CancelResetBtn = () => {
+  passwordReset.value = "";
+  isReset.value = false;
+};
+
+//Delete staff
+const delID = ref(0);
+const isConfirmDel = ref(false);
+const deleteStaff = (id) => {
+  isConfirmDel.value = true;
+  delID.value = id;
+};
+
+const deleteStaffBtn = async () => {
+  const url = serverData.value + "cc/delStaffbyID.php";
+  const dataSend = {
+    staffID: delID.value,
+  };
+  const res = await axios.post(url, JSON.stringify(dataSend));
+
+  if (res.data == "delete staff finish") {
+    Notify.create({
+      message: "Delete staff finish",
+      color: "positive",
+      position: "top",
+      icon: "fa-solid fa-circle-check",
+    });
+
+    isConfirmDel.value = false;
+    loadUser();
+  }
+};
+
+//load user in the list
+const userList = ref([]);
 const loadUser = async () => {
   const url = serverData.value + "cc/getStaff.php";
   const res = await axios.get(url);
   userList.value = res.data;
 };
 loadUser();
+
+//check login
+const checkLogin = async () => {
+  const myKey = LocalStorage.getItem("myLey");
+};
 </script>
 
 <style lang="scss" scoped>

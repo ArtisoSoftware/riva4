@@ -63,6 +63,7 @@
           <div
             class="q-px-lg q-py-sm cursor-pointer"
             :class="{ selectedMenu: menu == 32 }"
+            @click="goToStaff()"
           >
             Staff
           </div>
@@ -91,9 +92,11 @@
 <script setup>
 import { ref, watch } from "vue";
 import { defineProps } from "vue";
+import { useRouter } from "vue-router";
 
 const vaExpanded = ref(false);
 const userExpanded = ref(false);
+const router = useRouter();
 // รับ prop จาก parent
 const props = defineProps({
   menu: {
@@ -122,6 +125,10 @@ watch(userExpanded, (newVal) => {
     vaExpanded.value = false;
   }
 });
+
+const goToStaff = () => {
+  router.push("/staff");
+};
 </script>
 
 <style lang="scss" scoped>

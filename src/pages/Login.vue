@@ -19,11 +19,26 @@
           <div class="row justify-center">
             <div class="row q-pt-lg" style="font-size: 16px">
               <div style="width: 100px">Username</div>
-              <div><q-input outlined dense style="width: 180px" /></div>
+              <div>
+                <q-input
+                  outlined
+                  dense
+                  style="width: 180px"
+                  v-model="username"
+                />
+              </div>
             </div>
             <div class="row q-pt-lg" style="font-size: 16px">
               <div style="width: 100px">Password</div>
-              <div><q-input outlined dense style="width: 180px" /></div>
+              <div>
+                <q-input
+                  outlined
+                  dense
+                  style="width: 180px"
+                  v-model="password"
+                  type="password"
+                />
+              </div>
             </div>
           </div>
           <div class="text-center q-pt-lg">
@@ -37,7 +52,7 @@
                 font-size: 20px;
                 border-radius: 5px;
               "
-              @click="goToWelcome()"
+              @click="loginBtn()"
             />
           </div>
           <div class="q-pa-md" style="position: absolute; bottom: 0; right: 0">
@@ -51,9 +66,44 @@
 
 <script setup>
 import { useRouter } from "vue-router";
+import { serverSetup } from "./server.js";
+import { ref } from "vue";
+import { Notify, LocalStorage } from "quasar";
+import axios from "axios";
+
+const { serverData } = serverSetup();
 const router = useRouter();
-const goToWelcome = () => {
-  router.push("/welcome");
+const username = ref("");
+const password = ref("");
+
+const loginBtn = async () => {
+  if (!username.value || !password.value) {
+    Notify.create({
+      message: "Username / password is required",
+      color: "negative",
+      icon: "fa-solid fa-circle-exclamation",
+      position: "top",
+    });
+    return;
+  }
+  const url = serverData.value + "cc/checkLogin.php";
+  const dataSend = {
+    username: username.value,
+    password: password.value,
+  };
+  const res = await axios.post(url, JSON.stringify(dataSend));
+  if (res.data == "Username / password incorrect") {
+    Notify.create({
+      message: "Username / password incorrect",
+      color: "negative",
+      icon: "fa-solid fa-circle-exclamation",
+      position: "top",
+    });
+    return;
+  } else {
+    LocalStorage.set("myKey", res.data);
+    router.push("/welcome");
+  }
 };
 </script>
 
