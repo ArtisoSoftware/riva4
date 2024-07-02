@@ -15,6 +15,10 @@ const routes = [
     path: "/year",
     component: () => import("src/pages/Year.vue"),
   },
+  {
+    path: "/economics",
+    component: () => import("src/pages/Economics.vue"),
+  },
 
   // Always leave this as last one,
   // but you can also remove it
