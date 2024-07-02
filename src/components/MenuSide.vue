@@ -44,7 +44,13 @@
           >
             Year
           </div>
-          <div class="q-px-lg q-py-sm">Economics</div>
+          <div
+            class="q-px-lg q-py-sm cursor-pointer"
+            @click="goToEco()"
+            :class="{ selectedMenu: menu == 22 }"
+          >
+            Economics
+          </div>
           <div class="q-px-lg q-py-sm">Economics group</div>
           <div class="q-px-lg q-py-sm">Exporting section</div>
 
@@ -137,6 +143,9 @@ watch(userExpanded, (newVal) => {
 
 const goToYear = () => {
   router.push("/year");
+};
+const goToEco = () => {
+  router.push("/economics");
 };
 const goToStaff = () => {
   router.push("/staff");
