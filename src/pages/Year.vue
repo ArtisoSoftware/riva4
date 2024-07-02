@@ -20,6 +20,7 @@
       <div
         class="resultList row q-px-md"
         v-for="(item, index) in yearList"
+        :key="index"
         :class="{ resultBlue: index % 2 == 1 }"
       >
         <div class="col q-px-lg">{{ item.year }}</div>
@@ -38,7 +39,11 @@
           <u class="cursor-pointer" @click="changeStatus(item.id)">Active</u>
         </div>
         <div style="width: 10%" class="text-center">
-          <q-icon name="fa-solid fa-trash" class="cursor-pointer" />
+          <q-icon
+            name="fa-solid fa-trash"
+            class="cursor-pointer"
+            @click="delYear(item.id)"
+          />
         </div>
       </div>
     </div>
@@ -69,6 +74,25 @@
           </div>
         </div>
       </div>
+    </q-dialog>
+
+    <!-- //Confirm delete staff -->
+    <q-dialog v-model="isConfirmDel" persistent>
+      <q-card>
+        <q-card-section class="row items-center">
+          <span class="q-ml-sm">Do you want to delete this year?</span>
+        </q-card-section>
+
+        <q-card-actions align="right">
+          <q-btn flat label="Cancel" color="primary" v-close-popup />
+          <q-btn
+            flat
+            label="Yes, delete it"
+            color="primary"
+            @click="deleteYearBtn()"
+          />
+        </q-card-actions>
+      </q-card>
     </q-dialog>
   </div>
 </template>
@@ -140,6 +164,32 @@ const changeStatus = async (id) => {
   };
   const res = await axios.post(url, JSON.stringify(dataSend));
   loadYearData();
+};
+
+//Del year
+const isConfirmDel = ref(false);
+const delYearID = ref(0);
+const delYear = (id) => {
+  delYearID.value = id;
+  isConfirmDel.value = true;
+};
+
+const deleteYearBtn = async () => {
+  const url = serverData.value + "cc/delYear.php";
+  const dataSend = {
+    yearID: delYearID.value,
+  };
+  const res = await axios.post(url, JSON.stringify(dataSend));
+  if (res.data == "delete year finish") {
+    Notify.create({
+      message: "Delete year finish",
+      color: "positive",
+      position: "top",
+      icon: "fa-solid fa-circle-check",
+    });
+    loadYearData();
+    isConfirmDel.value = false;
+  }
 };
 </script>
 

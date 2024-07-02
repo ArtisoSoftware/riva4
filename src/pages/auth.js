@@ -8,7 +8,6 @@ export function useAuth() {
   const router = useRouter();
   const hashkey = ref(LocalStorage.getItem("myKey"));
   const { serverData } = serverSetup();
-  console.log(hashkey.value);
   const checkHashkey = async () => {
     if (!hashkey.value) {
       localStorage.clear();
