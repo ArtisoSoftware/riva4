@@ -136,6 +136,9 @@ import { serverSetup } from "./server.js";
 import { ref } from "vue";
 import { Notify, LocalStorage } from "quasar";
 import axios from "axios";
+import { useAuth } from "./auth";
+const { checkHashkey } = useAuth();
+checkHashkey();
 const { serverData } = serverSetup();
 
 // Add new staff
