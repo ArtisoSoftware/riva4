@@ -17,6 +17,13 @@
         <div style="width: 80%" class="text-center">Status</div>
         <div style="width: 10%" class="text-center">Delete</div>
       </div>
+      <div class="resultList row q-px-md">
+        <div class="col q-px-lg">2010</div>
+        <div style="width: 80%" class="text-center">Active</div>
+        <div style="width: 10%" class="text-center">
+          <q-icon name="fa-solid fa-trash" class="cursor-pointer" />
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -31,5 +38,12 @@ import MenuSide from "../components/MenuSide.vue";
   color: white;
   height: 45px;
   line-height: 45px;
+}
+.resultList {
+  height: 30px;
+  line-height: 30px;
+}
+.resultBlue {
+  background-color: #e5ebf8;
 }
 </style>
