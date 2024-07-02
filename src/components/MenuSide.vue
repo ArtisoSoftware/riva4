@@ -37,7 +37,13 @@
             <q-item-section> VA </q-item-section>
           </template>
           <div class="q-px-lg subTopic">General Data</div>
-          <div class="q-px-lg q-py-sm">Year</div>
+          <div
+            class="q-px-lg q-py-sm cursor-pointer"
+            :class="{ selectedMenu: menu == 21 }"
+            @click="goToYear()"
+          >
+            Year
+          </div>
           <div class="q-px-lg q-py-sm">Economics</div>
           <div class="q-px-lg q-py-sm">Economics group</div>
           <div class="q-px-lg q-py-sm">Exporting section</div>
@@ -126,6 +132,9 @@ watch(userExpanded, (newVal) => {
   }
 });
 
+const goToYear = () => {
+  router.push("/year");
+};
 const goToStaff = () => {
   router.push("/staff");
 };

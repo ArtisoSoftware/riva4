@@ -11,6 +11,10 @@ const routes = [
     path: "/staff",
     component: () => import("pages/Staff.vue"),
   },
+  {
+    path: "/year",
+    component: () => import("src/pages/Year.vue"),
+  },
 
   // Always leave this as last one,
   // but you can also remove it
