@@ -78,6 +78,8 @@
             position: absolute;
             bottom: 10px;
           "
+          class="cursor-pointer"
+          @click="logOutBtn()"
         >
           <div class="row q-pl-md q-pt-md">
             <div><img src="../../public/images/exit.svg" alt="" /></div>
@@ -90,6 +92,7 @@
 </template>
 
 <script setup>
+import { LocalStorage } from "quasar";
 import { ref, watch } from "vue";
 import { defineProps } from "vue";
 import { useRouter } from "vue-router";
@@ -128,6 +131,11 @@ watch(userExpanded, (newVal) => {
 
 const goToStaff = () => {
   router.push("/staff");
+};
+
+const logOutBtn = () => {
+  LocalStorage.clear();
+  router.push("/");
 };
 </script>
 

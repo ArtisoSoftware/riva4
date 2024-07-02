@@ -29,6 +29,9 @@
 
 <script setup>
 import MenuSide from "../components/MenuSide.vue";
+import { useAuth } from "./auth";
+const { checkHashkey } = useAuth();
+checkHashkey();
 </script>
 
 <style lang="scss" scoped>
