@@ -30,7 +30,7 @@
         <div style="width: 15%" class="text-center">{{ item.iso }}</div>
         <div style="width: 20%" class="text-center">{{ item.region }}</div>
         <div style="width: 10%" class="text-center">
-          <u class="cursor-pointer" @click="editEco(item.id)">Edit</u>
+          <u class="cursor-pointer" @click="editEco(item)">Edit</u>
         </div>
         <div style="width: 10%" class="text-center">
           <q-icon
@@ -284,8 +284,41 @@ const deleteEconomic = async () => {
 // ***Edit Economic
 const isEditEcoDia = ref(false);
 const editEcoID = ref(0);
+const edit = ref({
+  economic: "",
+  iso: "",
+  region: "",
+});
+const editEco = (item) => {
+  editEcoID.value = item.id;
+  edit.value.economic = item.economic;
+  edit.value.iso = item.iso;
+  edit.value.region = item.region;
+  isEditEcoDia.value = true;
+};
 
-const editEco = (id) => {};
+const cancelEditBtn = () => {
+  isEditEcoDia.value = false;
+};
+
+const EditEcoBtn = async () => {
+  const url = serverData.value + "cc/editEco.php";
+  const dataSend = {
+    economic: edit.value.economic,
+    iso: edit.value.iso,
+    region: edit.value.region,
+    id: editEcoID.value,
+  };
+  const res = await axios.post(url, JSON.stringify(dataSend));
+  Notify.create({
+    message: "Update economic finish",
+    color: "positive",
+    position: "top",
+    icon: "fa-solid fa-circle-check",
+  });
+  isEditEcoDia.value = false;
+  loadData();
+};
 </script>
 
 <style lang="scss" scoped>
