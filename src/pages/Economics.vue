@@ -29,7 +29,9 @@
         <div class="col q-px-lg">{{ item.economic }}</div>
         <div style="width: 15%" class="text-center">{{ item.iso }}</div>
         <div style="width: 20%" class="text-center">{{ item.region }}</div>
-        <div style="width: 10%" class="text-center">Edit</div>
+        <div style="width: 10%" class="text-center">
+          <u class="cursor-pointer" @click="editEco(item.id)">Edit</u>
+        </div>
         <div style="width: 10%" class="text-center">
           <q-icon
             name="fa-solid fa-trash"
@@ -39,7 +41,7 @@
         </div>
       </div>
     </div>
-
+    <!-- Add new eco -->
     <q-dialog v-model="addNewEcoDia" persistent>
       <q-card class="addNewEcoDiv">
         <div class="q-px-md headBar">Add new Economic</div>
@@ -88,6 +90,60 @@
           <div style="width: 30px"></div>
           <div>
             <q-btn label="Save" no-caps class="btnSave" @click="addNewEco()" />
+          </div>
+        </div>
+      </q-card>
+    </q-dialog>
+
+    <!-- Edit economic -->
+    <q-dialog v-model="isEditEcoDia" persistent>
+      <q-card class="addNewEcoDiv">
+        <div class="q-px-md headBar">Editconomic</div>
+        <div class="row justify-center q-pt-md">
+          <div class="q-pt-sm" style="width: 40px">Economic</div>
+          <div class="q-px-md"></div>
+          <div>
+            <q-input
+              v-model="edit.economic"
+              dense
+              outlined
+              style="width: 300px"
+            />
+          </div>
+        </div>
+        <div class="row justify-center q-pt-md">
+          <div class="q-pt-sm" style="width: 40px">ISO</div>
+          <div class="q-px-md"></div>
+          <div>
+            <q-input v-model="edit.iso" outlined dense style="width: 300px" />
+          </div>
+        </div>
+        <div class="row justify-center q-pt-md">
+          <div class="q-pt-sm" style="width: 40px">Region</div>
+          <div class="q-px-md"></div>
+          <div>
+            <q-select
+              v-model="edit.region"
+              :options="regionList"
+              outlined
+              dense
+              style="width: 300px"
+            />
+          </div>
+        </div>
+        <div class="row justify-center q-pt-md">
+          <div>
+            <q-btn
+              label="Cancel"
+              no-caps
+              outline
+              class="btnCancel"
+              @click="cancelEditBtn()"
+            />
+          </div>
+          <div style="width: 30px"></div>
+          <div>
+            <q-btn label="Save" no-caps class="btnSave" @click="EditEcoBtn()" />
           </div>
         </div>
       </q-card>
@@ -204,6 +260,7 @@ const loadData = async () => {
   const url = serverData.value + "cc/getEconomic.php";
   const res = await axios.get(url);
   economicList.value = res.data;
+  economicList.value.sort((a, b) => (a.economic > b.economic ? 1 : -1));
 };
 onMounted(loadData);
 
@@ -214,6 +271,21 @@ const delEco = (id) => {
   isConfirmDel.value = true;
   ecoDelID.value = id;
 };
+const deleteEconomic = async () => {
+  const url = serverData.value + "cc/delEco.php";
+  const dataSend = {
+    ecoID: ecoDelID.value,
+  };
+  const res = axios.post(url, JSON.stringify(dataSend));
+  isConfirmDel.value = false;
+  loadData();
+};
+
+// ***Edit Economic
+const isEditEcoDia = ref(false);
+const editEcoID = ref(0);
+
+const editEco = (id) => {};
 </script>
 
 <style lang="scss" scoped>
