@@ -4,14 +4,14 @@
       <div class="row">
         <div>
           <img
-            src="../../public/images/login.png"
+            src="images/login.png"
             alt=""
             style="border-radius: 10px 0px 0px 10px"
           />
         </div>
         <div class="col">
           <div class="text-center" style="padding-top: 100px">
-            <img src="../../public/images/logo.svg" alt="" />
+            <img src="images/logo.svg" alt="" />
           </div>
           <div style="font-size: 24px" class="text-center">
             RIVA 3 Control Center

@@ -1,15 +1,15 @@
 <template>
   <div class="menuLeft">
     <div class="q-pa-md text-center">
-      <img src="../../public//images/rivalogo.svg" alt="" />
+      <img src="images/rivalogo.svg" alt="" />
     </div>
     <div style="text-align: center">
-      <img src="../../public/images/profile.png" alt="" />
+      <img src="images/profile.png" alt="" />
     </div>
     <div class="row justify-center q-pb-md">
       <div style="font-size: 16px">Lisa</div>
       <div class="q-px-sm" style="padding-top: 3px">
-        <img src="../../public/images/editProfile.svg" alt="" />
+        <img src="images/editProfile.svg" alt="" />
       </div>
     </div>
     <div>
@@ -21,7 +21,7 @@
         <q-expansion-item disable>
           <template v-slot:header>
             <q-item-section avatar>
-              <img src="../../public/images/rimenu.svg" alt="" />
+              <img src="images/rimenu.svg" alt="" />
             </q-item-section>
 
             <q-item-section> RI </q-item-section>
@@ -31,7 +31,7 @@
         <q-expansion-item v-model="vaExpanded">
           <template v-slot:header>
             <q-item-section avatar>
-              <img src="../../public/images/vamenu.svg" alt="" />
+              <img src="images/vamenu.svg" alt="" />
             </q-item-section>
 
             <q-item-section> VA </q-item-section>
@@ -51,8 +51,20 @@
           >
             Economics
           </div>
-          <div class="q-px-lg q-py-sm">Economics group</div>
-          <div class="q-px-lg q-py-sm">Exporting section</div>
+          <div
+            class="q-px-lg q-py-sm cursor-pointer"
+            @click="goToEcoGroup()"
+            :class="{ selectedMenu: menu == 23 }"
+          >
+            Economy groups
+          </div>
+          <div
+            class="q-px-lg q-py-sm cursor-pointer"
+            @click="goToExporting()"
+            :class="{ selectedMenu: menu == 24 }"
+          >
+            Exporting section
+          </div>
 
           <div class="q-px-lg subTopic">Page Data</div>
           <div class="q-px-lg q-py-sm">GVC relationships</div>
@@ -66,7 +78,7 @@
         <q-expansion-item v-model="userExpanded">
           <template v-slot:header>
             <q-item-section avatar>
-              <img src="../../public/images/usermenu.svg" alt="" />
+              <img src="images/usermenu.svg" alt="" />
             </q-item-section>
 
             <q-item-section> User </q-item-section>
@@ -94,7 +106,7 @@
           @click="logOutBtn()"
         >
           <div class="row q-pl-md q-pt-md">
-            <div><img src="../../public/images/exit.svg" alt="" /></div>
+            <div><img src="images/exit.svg" alt="" /></div>
             <div style="padding-left: 37px; height: 35 px">Log out</div>
           </div>
         </div>
@@ -106,7 +118,6 @@
 <script setup>
 import { LocalStorage } from "quasar";
 import { ref, watch } from "vue";
-import { defineProps } from "vue";
 import { useRouter } from "vue-router";
 
 const vaExpanded = ref(false);
@@ -146,6 +157,12 @@ const goToYear = () => {
 };
 const goToEco = () => {
   router.push("/economics");
+};
+const goToEcoGroup = () => {
+  router.push("/economyGroup");
+};
+const goToExporting = () => {
+  router.push("/exporting");
 };
 const goToStaff = () => {
   router.push("/staff");

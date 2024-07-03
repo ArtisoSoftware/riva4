@@ -7,10 +7,7 @@ const routes = [
     path: "/welcome",
     component: () => import("pages/Welcome.vue"),
   },
-  {
-    path: "/staff",
-    component: () => import("pages/Staff.vue"),
-  },
+
   {
     path: "/year",
     component: () => import("src/pages/Year.vue"),
@@ -18,6 +15,18 @@ const routes = [
   {
     path: "/economics",
     component: () => import("src/pages/Economics.vue"),
+  },
+  {
+    path: "/economyGroup",
+    component: () => import("src/pages/economyGroup.vue"),
+  },
+  {
+    path: "/exporting",
+    component: () => import("src/pages/ExportingSection.vue"),
+  },
+  {
+    path: "/staff",
+    component: () => import("pages/Staff.vue"),
   },
 
   // Always leave this as last one,

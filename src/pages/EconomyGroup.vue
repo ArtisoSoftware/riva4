@@ -1,11 +1,11 @@
 <template>
   <div class="row">
-    <div style="width: 260px"><MenuSide :menu="22" :openMenu="2" /></div>
+    <div style="width: 260px"><MenuSide :menu="23" :openMenu="2" /></div>
     <div class="col q-pa-md">
       <div class="text-right">
         <q-btn
-          label="Add new eco"
-          class="btn"
+          label="Add new eco group"
+          class="btnx"
           icon="fa-solid fa-plus"
           no-caps
           @click="AddNewEcoBtn()"
@@ -13,9 +13,8 @@
       </div>
       <div class="headBar q-mt-md row q-px-md">
         <div style="width: 5%">No.</div>
-        <div class="col q-px-lg">Economic</div>
-        <div style="width: 15%" class="text-center">iso</div>
-        <div style="width: 20%" class="text-center">region</div>
+        <div class="col q-px-lg">Economy group</div>
+
         <div style="width: 10%" class="text-center">Edit</div>
         <div style="width: 10%" class="text-center">Delete</div>
       </div>
@@ -27,8 +26,6 @@
       >
         <div style="width: 5%">{{ index + 1 }}</div>
         <div class="col q-px-lg">{{ item.economic }}</div>
-        <div style="width: 15%" class="text-center">{{ item.iso }}</div>
-        <div style="width: 20%" class="text-center">{{ item.region }}</div>
         <div style="width: 10%" class="text-center">
           <u class="cursor-pointer" @click="editEco(item)">Edit</u>
         </div>
@@ -322,10 +319,10 @@ const EditEcoBtn = async () => {
 </script>
 
 <style lang="scss" scoped>
-.btn {
+.btnx {
   background-color: #0f4c8a;
   color: white;
-  width: 180px;
+  width: 280px;
 }
 .headBar {
   background-color: #04284d;

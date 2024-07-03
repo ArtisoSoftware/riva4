@@ -1,6 +1,6 @@
 <template>
   <div class="row">
-    <div style="width: 260px"><menu-side :menu="0" /></div>
+    <div style="width: 260px"><menu-side :menu="0" :openMenu="0" /></div>
     <div class="col">
       <div
         style="
@@ -17,10 +17,10 @@
         </div>
       </div>
       <div class="welcomePic row justify-center">
-        <img src="../../public/images/welcome.png" alt="" />
+        <img src="images/welcome.png" alt="" />
       </div>
       <div class="row justify-center" style="position: relative; top: -50px">
-        <div><img src="../../public/images/arrowleft.svg" alt="" /></div>
+        <div><img src="images/arrowleft.svg" alt="" /></div>
         <div class="promptText q-px-md q-pt-sm">Please select left menu</div>
       </div>
     </div>
