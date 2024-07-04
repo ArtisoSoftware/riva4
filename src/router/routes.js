@@ -18,11 +18,15 @@ const routes = [
   },
   {
     path: "/economyGroup",
-    component: () => import("src/pages/economyGroup.vue"),
+    component: () => import("src/pages/EconomyGroup.vue"),
   },
   {
     path: "/exporting",
     component: () => import("src/pages/ExportingSection.vue"),
+  },
+  {
+    path: "/exportingSub/:id",
+    component: () => import("src/pages/ExportingSectionSub.vue"),
   },
   {
     path: "/staff",

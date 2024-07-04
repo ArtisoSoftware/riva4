@@ -26,9 +26,13 @@
       >
         <div style="width: 10%" class="text-center">{{ item.orderID }}</div>
         <div class="col q-px-lg">{{ item.category }}</div>
-        <div style="width: 20%" class="text-center">Sub-category</div>
+        <div style="width: 20%" class="text-center">
+          <u class="cursor-pointer" @click="goToSubCat(item.id)"
+            >Sub-category</u
+          >
+        </div>
         <div style="width: 10%" class="text-center">
-          <u class="cursor-pointer">Edit</u>
+          <u class="cursor-pointer" @click="editCatBtn(item)">Edit</u>
         </div>
         <div style="width: 10%" class="text-center">
           <q-icon
@@ -42,7 +46,7 @@
 
     <!-- Dialog for add new category -->
     <q-dialog v-model="isAddCategory" persistent>
-      <q-card class="newCategoryDia">
+      <q-card class="">
         <div class="headBar q-px-md">Add new category</div>
         <div class="justify-center row q-pt-md">
           <div class="q-pt-sm" style="width: 65px">OrderID</div>
@@ -84,20 +88,30 @@
 
     <!-- Dialog for edit category -->
     <q-dialog v-model="isEditCategory" persistent>
-      <q-card class="editCategoryDia">
+      <q-card class="newCategoryDia">
         <div class="headBar q-px-md">Edit category</div>
         <div class="justify-center row q-pt-md">
           <div class="q-pt-sm" style="width: 65px">OrderID</div>
           <div style="width: 25px"></div>
           <div>
-            <q-input v-model="orderID" outlined dense style="width: 350px" />
+            <q-input
+              v-model="editCat.orderID"
+              outlined
+              dense
+              style="width: 350px"
+            />
           </div>
         </div>
         <div class="justify-center row q-pt-md">
           <div class="q-pt-sm" style="width: 65px">Category</div>
           <div style="width: 25px"></div>
           <div>
-            <q-input v-model="category" outlined dense style="width: 350px" />
+            <q-input
+              v-model="editCat.category"
+              outlined
+              dense
+              style="width: 350px"
+            />
           </div>
         </div>
 
@@ -108,7 +122,7 @@
               no-caps
               class="CancelBtn"
               outline
-              @click="closeDia"
+              @click="closeEditDia"
             />
           </div>
           <div style="width: 25px"></div>
@@ -117,7 +131,7 @@
               label="Save"
               no-caps
               class="CtaBtn"
-              @click="addCategoryBtn"
+              @click="editCategoryBtn"
             />
           </div>
         </div>
@@ -151,11 +165,13 @@ import { serverSetup } from "./server.js";
 import { ref, onMounted } from "vue";
 import { Notify } from "quasar";
 import axios from "axios";
+import { useRouter } from "vue-router";
 import { useAuth } from "./auth";
 const { checkHashkey } = useAuth();
 checkHashkey();
 
 const { serverData } = serverSetup();
+const router = useRouter();
 
 // add new category
 const isAddCategory = ref(false);
@@ -219,6 +235,39 @@ const deleteCatBtn = async () => {
 
 //Edit category
 const isEditCategory = ref(false);
+const editCat = ref({
+  id: "",
+  orderID: "",
+  category: "",
+});
+const editCatBtn = (item) => {
+  editCat.value.id = item.id;
+  editCat.value.orderID = item.orderID;
+  editCat.value.category = item.category;
+  isEditCategory.value = true;
+};
+
+const closeEditDia = () => {
+  isEditCategory.value = false;
+};
+
+const editCategoryBtn = async () => {
+  const url = serverData.value + "cc/editCategorySection.php";
+  const dataSend = {
+    id: editCat.value.id,
+    orderID: editCat.value.orderID,
+    category: editCat.value.category,
+  };
+  console.log(dataSend.value);
+  const res = await axios.post(url, JSON.stringify(dataSend));
+  isEditCategory.value = false;
+  loadCategoryList();
+};
+
+//Go to sub-category
+const goToSubCat = (id) => {
+  router.push("/exportingSub/" + id);
+};
 </script>
 
 <style lang="scss" scoped>

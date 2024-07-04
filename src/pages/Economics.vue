@@ -98,7 +98,7 @@
     <!-- Edit economic -->
     <q-dialog v-model="isEditEcoDia" persistent>
       <q-card class="addNewEcoDiv">
-        <div class="q-px-md headBar">Editconomic</div>
+        <div class="q-px-md headBar">Edit economic</div>
         <div class="row justify-center q-pt-md">
           <div class="q-pt-sm" style="width: 40px">Economic</div>
           <div class="q-px-md"></div>
