@@ -25,7 +25,7 @@
         :key="index"
       >
         <div style="width: 5%">{{ index + 1 }}</div>
-        <div class="col q-px-lg">{{ item.economic }}</div>
+        <div class="col q-px-lg">{{ item.economyGroup }}</div>
         <div style="width: 10%" class="text-center">
           <u class="cursor-pointer" @click="editEco(item)">Edit</u>
         </div>
@@ -41,39 +41,20 @@
     <!-- Add new eco -->
     <q-dialog v-model="addNewEcoDia" persistent>
       <q-card class="addNewEcoDiv">
-        <div class="q-px-md headBar">Add new Economic</div>
+        <div class="q-px-md headBar">Add new economy group</div>
         <div class="row justify-center q-pt-md">
-          <div class="q-pt-sm" style="width: 40px">Economic</div>
+          <div class="q-pt-sm" style="width: 100px">Economy group</div>
           <div class="q-px-md"></div>
           <div>
             <q-input
               v-model="input.economic"
               dense
               outlined
-              style="width: 300px"
+              style="width: 200px"
             />
           </div>
         </div>
-        <div class="row justify-center q-pt-md">
-          <div class="q-pt-sm" style="width: 40px">ISO</div>
-          <div class="q-px-md"></div>
-          <div>
-            <q-input v-model="input.iso" outlined dense style="width: 300px" />
-          </div>
-        </div>
-        <div class="row justify-center q-pt-md">
-          <div class="q-pt-sm" style="width: 40px">Region</div>
-          <div class="q-px-md"></div>
-          <div>
-            <q-select
-              v-model="input.region"
-              :options="regionList"
-              outlined
-              dense
-              style="width: 300px"
-            />
-          </div>
-        </div>
+
         <div class="row justify-center q-pt-md">
           <div>
             <q-btn
@@ -95,39 +76,20 @@
     <!-- Edit economic -->
     <q-dialog v-model="isEditEcoDia" persistent>
       <q-card class="addNewEcoDiv">
-        <div class="q-px-md headBar">Editconomic</div>
+        <div class="q-px-md headBar">Edit economy group</div>
         <div class="row justify-center q-pt-md">
-          <div class="q-pt-sm" style="width: 40px">Economic</div>
+          <div class="q-pt-sm" style="width: 100px">Economy group</div>
           <div class="q-px-md"></div>
           <div>
             <q-input
               v-model="edit.economic"
               dense
               outlined
-              style="width: 300px"
+              style="width: 200px"
             />
           </div>
         </div>
-        <div class="row justify-center q-pt-md">
-          <div class="q-pt-sm" style="width: 40px">ISO</div>
-          <div class="q-px-md"></div>
-          <div>
-            <q-input v-model="edit.iso" outlined dense style="width: 300px" />
-          </div>
-        </div>
-        <div class="row justify-center q-pt-md">
-          <div class="q-pt-sm" style="width: 40px">Region</div>
-          <div class="q-px-md"></div>
-          <div>
-            <q-select
-              v-model="edit.region"
-              :options="regionList"
-              outlined
-              dense
-              style="width: 300px"
-            />
-          </div>
-        </div>
+
         <div class="row justify-center q-pt-md">
           <div>
             <q-btn
@@ -181,60 +143,38 @@ const { serverData } = serverSetup();
 const addNewEcoDia = ref(false);
 const input = ref({
   economic: "",
-  iso: "",
-  region: "",
 });
-const regionList = ref([
-  "East and North-East Asia",
-  "Eastern Europe",
-  "Latin America and the Caribbean",
-  "North America",
-  "North and Central Asia",
-  "Northern Europe",
-  "Pacific",
-  "South and South-West Asia",
-  "South-East Asia",
-  "Southern Europe",
-  "Western Europe",
-]);
-input.value.region = regionList.value[0];
 
 //****Add new economic
 
 const AddNewEcoBtn = () => {
   addNewEcoDia.value = true;
   input.value.economic = "";
-  input.value.iso = "";
-  input.value.region = regionList.value[0];
 };
 
 const cancelBtn = () => {
   addNewEcoDia.value = false;
   input.value.economic = "";
-  input.value.iso = "";
-  input.value.region = regionList.value[0];
 };
 
 const addNewEco = async () => {
-  if (!input.value.economic || !input.value.iso) {
+  if (!input.value.economic) {
     Notify.create({
-      message: "Economic / ISO is required",
+      message: "Economy group is required",
       color: "negative",
       icon: "fa-solid fa-circle-exclamation",
       position: "top",
     });
     return;
   }
-  const url = serverData.value + "cc/addNewEco.php";
+  const url = serverData.value + "cc/addNewEcoGroup.php";
   const dataSent = {
     economic: input.value.economic,
-    iso: input.value.iso,
-    region: input.value.region,
   };
   const res = await axios.post(url, JSON.stringify(dataSent));
   if (res.data == "This economic is exist.") {
     Notify.create({
-      message: "This economic is exist",
+      message: "This economy group is exist.",
       color: "negative",
       icon: "fa-solid fa-circle-exclamation",
       position: "top",
@@ -242,7 +182,7 @@ const addNewEco = async () => {
     return;
   }
   Notify.create({
-    message: "Add new economic finish",
+    message: "Add new economy group finish",
     color: "positive",
     position: "top",
     icon: "fa-solid fa-circle-check",
@@ -254,10 +194,9 @@ const addNewEco = async () => {
 //****Load economic data
 const economicList = ref([]);
 const loadData = async () => {
-  const url = serverData.value + "cc/getEconomic.php";
+  const url = serverData.value + "cc/getEcoGroup.php";
   const res = await axios.get(url);
   economicList.value = res.data;
-  economicList.value.sort((a, b) => (a.economic > b.economic ? 1 : -1));
 };
 onMounted(loadData);
 
@@ -269,11 +208,11 @@ const delEco = (id) => {
   ecoDelID.value = id;
 };
 const deleteEconomic = async () => {
-  const url = serverData.value + "cc/delEco.php";
+  const url = serverData.value + "cc/delEcoGroup.php";
   const dataSend = {
     ecoID: ecoDelID.value,
   };
-  const res = axios.post(url, JSON.stringify(dataSend));
+  const res = await axios.post(url, JSON.stringify(dataSend));
   isConfirmDel.value = false;
   loadData();
 };
@@ -283,14 +222,11 @@ const isEditEcoDia = ref(false);
 const editEcoID = ref(0);
 const edit = ref({
   economic: "",
-  iso: "",
-  region: "",
 });
 const editEco = (item) => {
   editEcoID.value = item.id;
-  edit.value.economic = item.economic;
-  edit.value.iso = item.iso;
-  edit.value.region = item.region;
+  edit.value.economic = item.economyGroup;
+
   isEditEcoDia.value = true;
 };
 
@@ -299,16 +235,14 @@ const cancelEditBtn = () => {
 };
 
 const EditEcoBtn = async () => {
-  const url = serverData.value + "cc/editEco.php";
+  const url = serverData.value + "cc/editEcoGroup.php";
   const dataSend = {
     economic: edit.value.economic,
-    iso: edit.value.iso,
-    region: edit.value.region,
     id: editEcoID.value,
   };
   const res = await axios.post(url, JSON.stringify(dataSend));
   Notify.create({
-    message: "Update economic finish",
+    message: "Update economy group finish",
     color: "positive",
     position: "top",
     icon: "fa-solid fa-circle-check",
@@ -322,7 +256,7 @@ const EditEcoBtn = async () => {
 .btnx {
   background-color: #0f4c8a;
   color: white;
-  width: 280px;
+  width: 220px;
 }
 .headBar {
   background-color: #04284d;
@@ -333,7 +267,7 @@ const EditEcoBtn = async () => {
 .addNewEcoDiv {
   width: 100%;
   max-width: 450px;
-  height: 285px;
+  height: 185px;
 }
 .btnCancel {
   width: 120px;
