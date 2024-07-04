@@ -25,6 +25,10 @@ const routes = [
     component: () => import("src/pages/ExportingSection.vue"),
   },
   {
+    path: "/gvcrelationship",
+    component: () => import("src/pages/GvcRelationship.vue"),
+  },
+  {
     path: "/exportingSub/:id",
     component: () => import("src/pages/ExportingSectionSub.vue"),
   },

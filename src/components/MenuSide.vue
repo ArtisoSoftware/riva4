@@ -67,7 +67,13 @@
           </div>
 
           <div class="q-px-lg subTopic">Page Data</div>
-          <div class="q-px-lg q-py-sm">GVC relationships</div>
+          <div
+            class="q-px-lg q-py-sm cursor-pointer"
+            @click="goToGvcRelationship()"
+            :class="{ selectedMenu: menu == 31 }"
+          >
+            GVC relationships
+          </div>
           <div class="q-px-lg q-py-sm">Structure of value added</div>
           <div class="q-px-lg q-py-sm">Participation in GVCs</div>
           <div class="q-px-lg q-py-sm">Backward linkages</div>
@@ -163,6 +169,9 @@ const goToEcoGroup = () => {
 };
 const goToExporting = () => {
   router.push("/exporting");
+};
+const goToGvcRelationship = () => {
+  router.push("/gvcrelationship");
 };
 const goToStaff = () => {
   router.push("/staff");
