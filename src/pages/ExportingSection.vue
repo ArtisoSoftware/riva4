@@ -46,7 +46,7 @@
 
     <!-- Dialog for add new category -->
     <q-dialog v-model="isAddCategory" persistent>
-      <q-card class="">
+      <q-card class="newCategoryDia">
         <div class="headBar q-px-md">Add new category</div>
         <div class="justify-center row q-pt-md">
           <div class="q-pt-sm" style="width: 65px">OrderID</div>

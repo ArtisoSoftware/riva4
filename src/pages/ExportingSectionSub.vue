@@ -33,6 +33,25 @@
         <div style="width: 10%" class="text-center">Edit</div>
         <div style="width: 10%" class="text-center">Delete</div>
       </div>
+      <div
+        class="row q-px-md resultList"
+        v-for="(item, index) in subList"
+        :key="index"
+        :class="{ resultBlue: index % 2 == 1 }"
+      >
+        <div style="width: 10%" class="text-center">{{ item.orderID }}</div>
+        <div class="col q-px-lg">{{ item.subcategory }}</div>
+        <div style="width: 10%" class="text-center">
+          <u class="cursor-pointer" @click="editSubBtn(item)">Edit</u>
+        </div>
+        <div style="width: 10%" class="text-center">
+          <q-icon
+            name="fa-solid fa-trash"
+            class="cursor-pointer"
+            @click="deleteSub(item.id)"
+          />
+        </div>
+      </div>
     </div>
 
     <!-- Dialog for add new sub-category -->
@@ -79,6 +98,77 @@
             />
           </div>
         </div>
+      </q-card>
+    </q-dialog>
+
+    <!-- Dialog for edit sub-category -->
+    <q-dialog v-model="isEditSub" persistent>
+      <q-card class="newCategoryDia">
+        <div class="headBar q-px-md">Edit sub-category</div>
+        <div class="justify-center row q-pt-md">
+          <div class="q-pt-sm" style="width: 100px">OrderID</div>
+          <div style="width: 25px"></div>
+          <div>
+            <q-input
+              v-model="editSub.orderID"
+              outlined
+              dense
+              style="width: 350px"
+            />
+          </div>
+        </div>
+        <div class="justify-center row q-pt-md">
+          <div class="q-pt-sm" style="width: 100px">Sub-category</div>
+          <div style="width: 25px"></div>
+          <div>
+            <q-input
+              v-model="editSub.subCategory"
+              outlined
+              dense
+              style="width: 350px"
+            />
+          </div>
+        </div>
+
+        <div class="q-px-md row justify-center q-pt-md">
+          <div>
+            <q-btn
+              label="Cancel"
+              no-caps
+              class="CancelBtn"
+              outline
+              @click="closeEditDia"
+            />
+          </div>
+          <div style="width: 25px"></div>
+          <div>
+            <q-btn
+              label="Save"
+              no-caps
+              class="CtaBtn"
+              @click="editSubCategoryBtn"
+            />
+          </div>
+        </div>
+      </q-card>
+    </q-dialog>
+
+    <!-- //Confirm delete sub -->
+    <q-dialog v-model="isConfirmDelSub" persistent>
+      <q-card>
+        <q-card-section class="row items-center">
+          <span class="q-ml-sm">Do you want to delete this subcategory?</span>
+        </q-card-section>
+
+        <q-card-actions align="right">
+          <q-btn flat label="Cancel" color="primary" v-close-popup />
+          <q-btn
+            flat
+            label="Yes, delete it"
+            color="primary"
+            @click="deleteSubBtn()"
+          />
+        </q-card-actions>
       </q-card>
     </q-dialog>
   </div>
@@ -133,7 +223,89 @@ const AddSubCategory = () => {
 const closeAddDia = () => {
   isAddSub.value = false;
 };
-const addSubCategoryBtn = async () => {};
+const addSubCategoryBtn = async () => {
+  const url = serverData.value + "cc/addSubCategorySection.php";
+  const dataSend = {
+    orderID: orderID.value,
+    catID: catID.value,
+    subCategory: subCategory.value,
+  };
+
+  const res = await axios.post(url, JSON.stringify(dataSend));
+  Notify.create({
+    message: "Add new subcategory",
+    color: "positive",
+    position: "top",
+    icon: "fa-solid fa-circle-check",
+  });
+  isAddSub.value = false;
+  loadSubCategory();
+};
+
+//load subCategory List
+const subList = ref([]);
+const loadSubCategory = async () => {
+  const url = serverData.value + "cc/getSubCategory.php";
+  const dataSend = {
+    catID: catID.value,
+  };
+  const res = await axios.post(url, JSON.stringify(dataSend));
+  subList.value = res.data;
+};
+onMounted(() => {
+  loadSubCategory();
+});
+
+//Del SubCategory
+const delSubID = ref(0);
+const isConfirmDelSub = ref(false);
+const deleteSub = (id) => {
+  delSubID.value = id;
+  isConfirmDelSub.value = true;
+};
+const deleteSubBtn = async () => {
+  const url = serverData.value + "cc/delSubSection.php";
+  const dataSend = {
+    delSubID: delSubID.value,
+  };
+  const res = await axios.post(url, JSON.stringify(dataSend));
+  isConfirmDelSub.value = false;
+  loadSubCategory();
+};
+
+// edit subCategory
+const isEditSub = ref(false);
+const editSub = ref({
+  orderID: "",
+  subCategory: "",
+  id: "",
+});
+const editSubBtn = (item) => {
+  isEditSub.value = true;
+  editSub.value.orderID = item.orderID;
+  editSub.value.id = item.id;
+  editSub.value.subCategory = item.subcategory;
+};
+const closeEditDia = () => {
+  isEditSub.value = false;
+};
+const editSubCategoryBtn = async () => {
+  const url = serverData.value + "cc/editSubSection.php";
+  const dataSend = {
+    orderID: editSub.value.orderID,
+    id: editSub.value.id,
+    subCategory: editSub.value.subCategory,
+  };
+  const res = await axios.post(url, JSON.stringify(dataSend));
+  Notify.create({
+    message: "Edit subcategory",
+    color: "positive",
+    position: "top",
+    icon: "fa-solid fa-circle-check",
+  });
+  isEditSub.value = false;
+  loadSubCategory();
+};
 </script>
 
 <style lang="scss" scoped>
@@ -159,5 +331,12 @@ const addSubCategoryBtn = async () => {};
 .CtaBtn {
   width: 120px;
   background-color: #ffca4f;
+}
+.resultList {
+  height: 30px;
+  line-height: 30px;
+}
+.resultBlue {
+  background-color: #e5ebf8;
 }
 </style>
