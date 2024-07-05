@@ -36,7 +36,19 @@ const routes = [
     path: "/participationingvcs",
     component: () => import("src/pages/ParticipationInGVCs.vue"),
   },
+  {
+    path: "/backwardlinkages",
+    component: () => import("src/pages/BackwardLinkages.vue"),
+  },
+  {
+    path: "/forwardlinkages",
+    component: () => import("src/pages/ForwardLinkages.vue"),
+  },
 
+  {
+    path: "/countrybriefs",
+    component: () => import("src/pages/CountryBriefs.vue"),
+  },
   {
     path: "/exportingSub/:id",
     component: () => import("src/pages/ExportingSectionSub.vue"),
