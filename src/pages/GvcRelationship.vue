@@ -166,7 +166,7 @@
     </q-dialog>
     <!-- upload full CSV file dialog -->
     <q-dialog v-model="isUploadFullFile" persistent>
-      <div class="uploadFullDia"></div>
+      <div class="uploadFullDia">xxx</div>
     </q-dialog>
   </div>
 </template>
