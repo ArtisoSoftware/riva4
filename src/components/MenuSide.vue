@@ -70,7 +70,7 @@
           <div
             class="q-px-lg q-py-sm cursor-pointer"
             @click="goToGvcRelationship()"
-            :class="{ selectedMenu: menu == 31 }"
+            :class="{ selectedMenu: menu == 25 }"
           >
             GVC relationships
           </div>
