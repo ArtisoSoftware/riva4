@@ -8,8 +8,8 @@
     </div>
     <div class="row justify-center q-pb-md">
       <div style="font-size: 16px">Lisa</div>
-      <div class="q-px-sm" style="padding-top: 3px">
-        <img src="images/editProfile.svg" alt="" />
+      <div class="q-px-sm cursor-pointer" style="padding-top: 3px">
+        <img src="images/editProfile.svg" alt="" @click="editProfileBtn()" />
       </div>
     </div>
     <div>
@@ -132,6 +132,46 @@
         </div>
       </div>
     </div>
+    <!-- edfit profile dialog -->
+    <q-dialog v-model="isEditProfile" persistent>
+      <div class="editProfileDia">
+        <div class="headBar">
+          <div class="q-px-md" style="font-size: 20px">Change password</div>
+        </div>
+        <div class="row items-center justify-center q-pt-md">
+          <div style="width: 180px">Current password</div>
+          <div><q-input outlined dense v-model="currentPassword" /></div>
+        </div>
+        <div class="row items-center justify-center q-pt-sm">
+          <div style="width: 180px">New password</div>
+          <div><q-input outlined dense v-model="newPassword" /></div>
+        </div>
+        <div class="row items-center justify-center q-pt-sm">
+          <div style="width: 180px">Confirm new password</div>
+          <div><q-input outlined dense v-model="ConfirmNewPassword" /></div>
+        </div>
+        <div class="q-px-md row justify-center q-pt-lg text-black">
+          <div>
+            <q-btn
+              label="Cancel"
+              no-caps
+              outline
+              @click="cancelEditProfileBtn"
+              style="width: 120px"
+            />
+          </div>
+          <div style="width: 25px"></div>
+          <div>
+            <q-btn
+              label="Save"
+              no-caps
+              style="width: 120px; background-color: #ffca4f"
+              @click="saveEditProfileBtn"
+            />
+          </div>
+        </div>
+      </div>
+    </q-dialog>
   </div>
 </template>
 
@@ -202,6 +242,14 @@ const logOutBtn = () => {
   LocalStorage.clear();
   router.push("/");
 };
+
+const isEditProfile = ref(false);
+const editProfileBtn = () => {
+  isEditProfile.value = true;
+};
+const cancelEditProfileBtn = () => {
+  isEditProfile.value = false;
+};
 </script>
 
 <style lang="scss" scoped>
@@ -218,5 +266,18 @@ const logOutBtn = () => {
 }
 .selectedMenu {
   color: #e0d04e;
+}
+.editProfileDia {
+  width: 100%;
+  max-width: 500px;
+  height: 285px;
+  background-color: white;
+  overflow: hidden;
+}
+.headBar {
+  background-color: #04284d;
+  color: white;
+  height: 45px;
+  line-height: 45px;
 }
 </style>
