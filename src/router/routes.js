@@ -29,6 +29,15 @@ const routes = [
     component: () => import("src/pages/GvcRelationship.vue"),
   },
   {
+    path: "/structureofvalueadded",
+    component: () => import("src/pages/StructureOfValueAdded.vue"),
+  },
+  {
+    path: "/participationingvcs",
+    component: () => import("src/pages/ParticipationInGVCs.vue"),
+  },
+
+  {
     path: "/exportingSub/:id",
     component: () => import("src/pages/ExportingSectionSub.vue"),
   },

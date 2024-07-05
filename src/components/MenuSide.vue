@@ -74,8 +74,22 @@
           >
             GVC relationships
           </div>
-          <div class="q-px-lg q-py-sm">Structure of value added</div>
-          <div class="q-px-lg q-py-sm">Participation in GVCs</div>
+
+          <div
+            class="q-px-lg q-py-sm cursor-pointer"
+            @click="goTostructureofvalueadded()"
+            :class="{ selectedMenu: menu == 26 }"
+          >
+            Structure of value added
+          </div>
+
+          <div
+            class="q-px-lg q-py-sm"
+            @click="goToparticipationingvcs()"
+            :class="{ selectedMenu: menu == 27 }"
+          >
+            Participation in GVCs
+          </div>
           <div class="q-px-lg q-py-sm">Backward linkages</div>
           <div class="q-px-lg q-py-sm">Forward linkages</div>
           <div class="q-px-lg q-py-sm">Country briefs</div>
@@ -173,6 +187,13 @@ const goToExporting = () => {
 const goToGvcRelationship = () => {
   router.push("/gvcrelationship");
 };
+const goTostructureofvalueadded = () => {
+  router.push("/structureofvalueadded");
+};
+const goToparticipationingvcs = () => {
+  router.push("/participationingvcs");
+};
+
 const goToStaff = () => {
   router.push("/staff");
 };
