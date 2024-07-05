@@ -26,6 +26,7 @@
                   background-color: #2c4e96;
                   color: white;
                 "
+                @click="uploadFullBtn(1)"
               />
             </div>
             <div class="q-pt-lg">
@@ -68,6 +69,7 @@
                   background-color: #2c4e96;
                   color: white;
                 "
+                @click="uploadFullBtn(2)"
               />
             </div>
             <div class="q-pt-lg">
@@ -109,6 +111,7 @@
                   background-color: #2c4e96;
                   color: white;
                 "
+                @click="uploadFullBtn(3)"
               />
             </div>
             <div class="q-pt-lg">
@@ -128,16 +131,79 @@
         </div>
       </div>
     </div>
+    <!-- upload full CSV dialog -->
+    <q-dialog v-model="isUploadFull" persistent>
+      <div class="uploadFullDia">
+        <div class="headBar">
+          <div class="q-px-md" style="font-size: 20px">Upload Full CSV</div>
+        </div>
+        <div class="q-pt-lg row justify-center" style="font-size: 16px">
+          Uploading new data will delete existing records. <br />Continue?
+        </div>
+        <div class="q-px-md row justify-center q-pt-lg">
+          <div>
+            <q-btn
+              label="No, cancel"
+              no-caps
+              class="CancelBtn"
+              outline
+              @click="closeUploadFullCSVBtn"
+              style="width: 140px"
+            />
+          </div>
+          <div style="width: 25px"></div>
+          <div>
+            <q-btn
+              label="Yes, I understand"
+              no-caps
+              class="CtaBtn"
+              style="width: 140px; background-color: #ffca4f"
+              @click="understandUploadFullCsvBtn"
+            />
+          </div>
+        </div>
+      </div>
+    </q-dialog>
+    <!-- upload full CSV file dialog -->
+    <q-dialog v-model="isUploadFullFile" persistent>
+      <div class="uploadFullDia"></div>
+    </q-dialog>
   </div>
 </template>
 
 <script setup>
+import { ref } from "vue";
 import MenuSide from "../components/MenuSide.vue";
+
+const isUploadFull = ref(false);
+const uploadFullBtn = (id) => {
+  isUploadFull.value = true;
+};
+const closeUploadFullCSVBtn = (id) => {
+  isUploadFull.value = false;
+};
+
+const isUploadFullFile = ref(false);
+const understandUploadFullCsvBtn = (id) => {
+  isUploadFullFile.value = true;
+};
 </script>
 
 <style lang="scss" scoped>
 .fixedScreen {
   height: 100vh;
   overflow-y: auto;
+}
+.uploadFullDia {
+  width: 100%;
+  max-width: 450px;
+  height: 235px;
+  background-color: white;
+}
+.headBar {
+  background-color: #04284d;
+  color: white;
+  height: 45px;
+  line-height: 45px;
 }
 </style>
