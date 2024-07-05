@@ -102,6 +102,7 @@ const loginBtn = async () => {
     return;
   } else {
     LocalStorage.set("myKey", res.data);
+    LocalStorage.set("myUsername", username.value);
     router.push("/welcome");
   }
 };
