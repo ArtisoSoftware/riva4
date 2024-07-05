@@ -7,7 +7,7 @@
       <img src="images/profile.png" alt="" />
     </div>
     <div class="row justify-center q-pb-md">
-      <div style="font-size: 16px">Lisa</div>
+      <div style="font-size: 16px">{{ usernameDisplay }}</div>
       <div class="q-px-sm cursor-pointer" style="padding-top: 3px">
         <img src="images/editProfile.svg" alt="" @click="editProfileBtn()" />
       </div>
@@ -84,15 +84,34 @@
           </div>
 
           <div
-            class="q-px-lg q-py-sm"
+            class="q-px-lg q-py-sm cursor-pointer"
             @click="goToparticipationingvcs()"
             :class="{ selectedMenu: menu == 27 }"
           >
             Participation in GVCs
           </div>
-          <div class="q-px-lg q-py-sm">Backward linkages</div>
-          <div class="q-px-lg q-py-sm">Forward linkages</div>
-          <div class="q-px-lg q-py-sm">Country briefs</div>
+
+          <div
+            class="q-px-lg q-py-sm cursor-pointer"
+            @click="goTobackwardlinkages()"
+            :class="{ selectedMenu: menu == 28 }"
+          >
+            Backward linkages
+          </div>
+          <div
+            class="q-px-lg q-py-sm cursor-pointer"
+            @click="goToforwardlinkages()"
+            :class="{ selectedMenu: menu == 29 }"
+          >
+            Forward linkages
+          </div>
+          <div
+            class="q-px-lg q-py-sm cursor-pointer"
+            @click="goTocountrybriefs()"
+            :class="{ selectedMenu: menu == 210 }"
+          >
+            Country briefs
+          </div>
         </q-expansion-item>
         <q-separator />
         <q-expansion-item v-model="userExpanded">
@@ -132,7 +151,7 @@
         </div>
       </div>
     </div>
-    <!-- edfit profile dialog -->
+    <!-- edit password dialog -->
     <q-dialog v-model="isEditProfile" persistent>
       <div class="editProfileDia">
         <div class="headBar">
@@ -176,9 +195,13 @@
 </template>
 
 <script setup>
-import { LocalStorage } from "quasar";
-import { ref, watch } from "vue";
+import { Notify, LocalStorage } from "quasar";
+import { ref, watch, onMounted } from "vue";
 import { useRouter } from "vue-router";
+import { serverSetup } from "../pages/server.js";
+import axios from "axios";
+
+const { serverData } = serverSetup();
 
 const vaExpanded = ref(false);
 const userExpanded = ref(false);
@@ -233,6 +256,15 @@ const goTostructureofvalueadded = () => {
 const goToparticipationingvcs = () => {
   router.push("/participationingvcs");
 };
+const goTobackwardlinkages = () => {
+  router.push("/backwardlinkages");
+};
+const goToforwardlinkages = () => {
+  router.push("/forwardlinkages");
+};
+const goTocountrybriefs = () => {
+  router.push("/countrybriefs");
+};
 
 const goToStaff = () => {
   router.push("/staff");
@@ -243,13 +275,81 @@ const logOutBtn = () => {
   router.push("/");
 };
 
+//Change password
 const isEditProfile = ref(false);
+const currentPassword = ref("");
+const newPassword = ref("");
+const ConfirmNewPassword = ref("");
+
 const editProfileBtn = () => {
   isEditProfile.value = true;
 };
 const cancelEditProfileBtn = () => {
   isEditProfile.value = false;
 };
+const saveEditProfileBtn = async () => {
+  if (
+    !newPassword.value ||
+    !currentPassword.value ||
+    !ConfirmNewPassword.value
+  ) {
+    Notify.create({
+      message:
+        "Current password / new password / confirm password is required.",
+      color: "negative",
+      icon: "fa-solid fa-circle-exclamation",
+      position: "top",
+    });
+    return;
+  }
+  if (newPassword.value != ConfirmNewPassword.value) {
+    Notify.create({
+      message: "New password and confirm password do not match.",
+      color: "negative",
+      icon: "fa-solid fa-circle-exclamation",
+      position: "top",
+    });
+    return;
+  }
+  const url = serverData.value + "cc/changePassword.php";
+  const dataSend = {
+    username: usernameDisplay.value,
+    oldpassword: currentPassword.value,
+    newpassword: newPassword.value,
+    hashkey: LocalStorage.getItem("myKey"),
+  };
+  const res = await axios.post(url, JSON.stringify(dataSend));
+  if (res.data == "update password finish") {
+    Notify.create({
+      message: "New password updated",
+      color: "positive",
+      position: "top",
+      icon: "fa-solid fa-circle-check",
+    });
+  } else if (res.data == "old password incorrect") {
+    Notify.create({
+      message: "Current password incorrect",
+      color: "negative",
+      icon: "fa-solid fa-circle-exclamation",
+      position: "top",
+    });
+  } else {
+    Notify.create({
+      message: "something wrongs",
+      color: "negative",
+      icon: "fa-solid fa-circle-exclamation",
+      position: "top",
+    });
+    localStorage.clear();
+    router.push("/");
+  }
+};
+
+const usernameDisplay = ref("");
+
+onMounted(() => {
+  usernameDisplay.value = LocalStorage.getItem("myUsername");
+});
 </script>
 
 <style lang="scss" scoped>
