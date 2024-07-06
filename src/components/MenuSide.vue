@@ -49,7 +49,7 @@
             @click="goToEco()"
             :class="{ selectedMenu: menu == 22 }"
           >
-            Economics
+            Individual Economics
           </div>
           <div
             class="q-px-lg q-py-sm cursor-pointer"

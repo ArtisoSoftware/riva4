@@ -162,7 +162,7 @@ const cancelBtn = () => {
 const addNewEco = async () => {
   if (!input.value.economic) {
     Notify.create({
-      message: "Economy group is required",
+      message: "Economy group field is required.",
       color: "negative",
       icon: "fa-solid fa-circle-exclamation",
       position: "top",
@@ -183,8 +183,9 @@ const addNewEco = async () => {
     });
     return;
   }
+
   Notify.create({
-    message: "Add new economy group finish",
+    message: "New Economic group added to the system successfully.",
     color: "positive",
     position: "top",
     icon: "fa-solid fa-circle-check",

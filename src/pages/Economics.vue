@@ -1,7 +1,7 @@
 <template>
   <div class="row">
     <div style="width: 260px"><MenuSide :menu="22" :openMenu="2" /></div>
-    <div class="col q-pa-md">
+    <div class="col q-pa-md" style="height: 100vh; overflow-y: auto">
       <div class="text-right">
         <q-btn
           label="Add new eco"
@@ -15,7 +15,7 @@
         <div style="width: 5%">No.</div>
         <div class="col q-px-lg">Economic</div>
         <div style="width: 15%" class="text-center">iso</div>
-        <div style="width: 20%" class="text-center">region</div>
+        <div style="width: 30%" class="text-center">region</div>
         <div style="width: 10%" class="text-center">Edit</div>
         <div style="width: 10%" class="text-center">Delete</div>
       </div>
@@ -28,7 +28,7 @@
         <div style="width: 5%">{{ index + 1 }}</div>
         <div class="col q-px-lg">{{ item.economic }}</div>
         <div style="width: 15%" class="text-center">{{ item.iso }}</div>
-        <div style="width: 20%" class="text-center">{{ item.region }}</div>
+        <div style="width: 30%" class="text-center">{{ item.region }}</div>
         <div style="width: 10%" class="text-center">
           <u class="cursor-pointer" @click="editEco(item)">Edit</u>
         </div>
@@ -36,7 +36,7 @@
           <q-icon
             name="fa-solid fa-trash"
             class="cursor-pointer"
-            @click="delEco(item.id)"
+            @click="delEco(item.id, item.economic)"
           />
         </div>
       </div>
@@ -223,7 +223,7 @@ const cancelBtn = () => {
 const addNewEco = async () => {
   if (!input.value.economic || !input.value.iso) {
     Notify.create({
-      message: "Economic / ISO is required",
+      message: "Both Economic and ISO fields are required.",
       color: "negative",
       icon: "fa-solid fa-circle-exclamation",
       position: "top",
@@ -239,7 +239,7 @@ const addNewEco = async () => {
   const res = await axios.post(url, JSON.stringify(dataSent));
   if (res.data == "This economic is exist.") {
     Notify.create({
-      message: "This economic is exist",
+      message: "This economic name already exists.",
       color: "negative",
       icon: "fa-solid fa-circle-exclamation",
       position: "top",
@@ -247,7 +247,7 @@ const addNewEco = async () => {
     return;
   }
   Notify.create({
-    message: "Add new economic finish",
+    message: "New Economic added to the system successfully.",
     color: "positive",
     position: "top",
     icon: "fa-solid fa-circle-check",
@@ -269,18 +269,29 @@ onMounted(loadData);
 //***del Economic */
 const isConfirmDel = ref(false);
 const ecoDelID = ref(0);
-const delEco = (id) => {
+const ecoDelName = ref("");
+const delEco = (id, name) => {
   isConfirmDel.value = true;
   ecoDelID.value = id;
+  ecoDelName.value = name;
 };
 const deleteEconomic = async () => {
   const url = serverData.value + "cc/delEco.php";
   const dataSend = {
     ecoID: ecoDelID.value,
   };
-  const res = axios.post(url, JSON.stringify(dataSend));
-  isConfirmDel.value = false;
-  loadData();
+  const res = await axios.post(url, JSON.stringify(dataSend));
+  if (res.data == "delete economic finish") {
+    const msg = ref(ecoDelName.value + " has been successfully deleted.");
+    Notify.create({
+      message: msg.value,
+      color: "positive",
+      position: "top",
+      icon: "fa-solid fa-circle-check",
+    });
+    isConfirmDel.value = false;
+    loadData();
+  }
 };
 
 // ***Edit Economic
@@ -313,7 +324,7 @@ const EditEcoBtn = async () => {
   };
   const res = await axios.post(url, JSON.stringify(dataSend));
   Notify.create({
-    message: "Update economic finish",
+    message: "Economic data updated successfully.",
     color: "positive",
     position: "top",
     icon: "fa-solid fa-circle-check",

@@ -42,7 +42,7 @@
           <q-icon
             name="fa-solid fa-trash"
             class="cursor-pointer"
-            @click="delYear(item.id)"
+            @click="delYear(item.id, item.year)"
           />
         </div>
       </div>
@@ -122,7 +122,7 @@ const closeDia = () => {
 const saveNewYear = async () => {
   if (!yearInput.value) {
     Notify.create({
-      message: "Year is required",
+      message: "The year field is required.",
       color: "negative",
       icon: "fa-solid fa-circle-exclamation",
       position: "top",
@@ -134,9 +134,13 @@ const saveNewYear = async () => {
     year: yearInput.value,
   };
   const res = await axios.post(url, JSON.stringify(dataSend));
+  const msgAdd = ref(
+    "Year " + yearInput.value + " has been successfully added."
+  );
+  const msgDup = ref("Year " + yearInput.value + " is already in the system.");
   if (res.data == "Add new year finish") {
     Notify.create({
-      message: "Add new year finish",
+      message: msgAdd.value,
       color: "positive",
       position: "top",
       icon: "fa-solid fa-circle-check",
@@ -144,6 +148,14 @@ const saveNewYear = async () => {
     isAddYear.value = false;
     yearInput.value = "";
     loadYearData();
+  } else {
+    Notify.create({
+      message: msgDup.value,
+      color: "negative",
+      icon: "fa-solid fa-circle-exclamation",
+      position: "top",
+    });
+    return;
   }
 };
 
@@ -171,8 +183,10 @@ const changeStatus = async (id) => {
 //Del year
 const isConfirmDel = ref(false);
 const delYearID = ref(0);
-const delYear = (id) => {
+const yearDel = ref(0);
+const delYear = (id, yearDelx) => {
   delYearID.value = id;
+  yearDel.value = yearDelx;
   isConfirmDel.value = true;
 };
 
@@ -183,8 +197,12 @@ const deleteYearBtn = async () => {
   };
   const res = await axios.post(url, JSON.stringify(dataSend));
   if (res.data == "delete year finish") {
+    const msg = ref(
+      "Year " + yearDel.value + " has been successfully deleted."
+    );
+
     Notify.create({
-      message: "Delete year finish",
+      message: msg.value,
       color: "positive",
       position: "top",
       icon: "fa-solid fa-circle-check",
