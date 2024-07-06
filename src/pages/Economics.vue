@@ -151,12 +151,14 @@
 
     <!-- //Confirm delete economic -->
     <q-dialog v-model="isConfirmDel" persistent>
-      <q-card>
-        <q-card-section class="row items-center">
-          <span class="q-ml-sm">Do you want to delete this economic?</span>
-        </q-card-section>
-
-        <q-card-actions align="right">
+      <div class="deleteDia">
+        <div class="headBar">
+          <div class="q-px-md">Delete economic</div>
+        </div>
+        <div class="q-px-md q-pt-lg" style="font-size: 16px">
+          Do you want to delete this economic?
+        </div>
+        <div class="q-pt-md text-right">
           <q-btn flat label="Cancel" color="primary" v-close-popup />
           <q-btn
             flat
@@ -164,8 +166,8 @@
             color="primary"
             @click="deleteEconomic()"
           />
-        </q-card-actions>
-      </q-card>
+        </div>
+      </div>
     </q-dialog>
   </div>
 </template>
@@ -351,5 +353,13 @@ const EditEcoBtn = async () => {
 .resultList {
   height: 30px;
   line-height: 30px;
+}
+
+.deleteDia {
+  width: 100%;
+  max-width: 350px;
+  height: 160px;
+  background-color: white;
+  overflow: hidden;
 }
 </style>

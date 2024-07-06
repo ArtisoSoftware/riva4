@@ -14,7 +14,7 @@
       </div>
       <div class="headBar q-mt-md row q-px-md">
         <div class="col q-px-lg">Year</div>
-        <div style="width: 80%" class="text-center">Status</div>
+        <div style="width: 10%" class="text-center">Status</div>
         <div style="width: 10%" class="text-center">Delete</div>
       </div>
       <div
@@ -25,14 +25,14 @@
       >
         <div class="col q-px-lg">{{ item.year }}</div>
         <div
-          style="width: 80%"
+          style="width: 10%"
           class="text-center text-red"
           v-if="item.active == '0'"
         >
           <u class="cursor-pointer" @click="changeStatus(item.id)">Inactive</u>
         </div>
         <div
-          style="width: 80%"
+          style="width: 10%"
           class="text-center text-green"
           v-if="item.active != '0'"
         >
@@ -52,7 +52,7 @@
       <div class="newYearDia">
         <div class="headBar q-px-md">Add new year</div>
 
-        <div class="row justify-center" style="padding-top: 40px">
+        <div class="row justify-center" style="padding-top: 30px">
           <div class="q-pt-sm">Year</div>
           <div style="width: 25px"></div>
           <div><q-input v-model="yearInput" outlined dense /></div>
@@ -78,12 +78,14 @@
 
     <!-- //Confirm delete staff -->
     <q-dialog v-model="isConfirmDel" persistent>
-      <q-card>
-        <q-card-section class="row items-center">
-          <span class="q-ml-sm">Do you want to delete this year?</span>
-        </q-card-section>
-
-        <q-card-actions align="right">
+      <div class="deleteDia">
+        <div class="headBar">
+          <div class="q-px-md">Delete year</div>
+        </div>
+        <div class="q-px-md q-pt-lg" style="font-size: 16px">
+          Do you want to delete this year?
+        </div>
+        <div class="q-pt-md text-right">
           <q-btn flat label="Cancel" color="primary" v-close-popup />
           <q-btn
             flat
@@ -91,8 +93,8 @@
             color="primary"
             @click="deleteYearBtn()"
           />
-        </q-card-actions>
-      </q-card>
+        </div>
+      </div>
     </q-dialog>
   </div>
 </template>
@@ -210,12 +212,20 @@ const deleteYearBtn = async () => {
 
 .newYearDia {
   width: 100%;
-  max-width: 450px;
-  height: 235px;
+  max-width: 400px;
+  height: 200px;
   background-color: white;
 }
 .CtaBtn {
   width: 120px;
   background-color: #ffca4f;
+}
+
+.deleteDia {
+  width: 100%;
+  max-width: 350px;
+  height: 160px;
+  background-color: white;
+  overflow: hidden;
 }
 </style>
