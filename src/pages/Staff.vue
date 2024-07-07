@@ -34,7 +34,7 @@
           <q-icon
             name="fa-solid fa-trash"
             class="cursor-pointer"
-            @click="deleteStaff(item.staffID)"
+            @click="deleteStaff(item.staffID, item.username)"
           />
         </div>
       </div>
@@ -111,12 +111,14 @@
 
     <!-- //Confirm delete staff -->
     <q-dialog v-model="isConfirmDel" persistent>
-      <q-card>
-        <q-card-section class="row items-center">
-          <span class="q-ml-sm">Do you want to delete this staff?</span>
-        </q-card-section>
-
-        <q-card-actions align="right">
+      <div class="deleteDia">
+        <div class="headBar">
+          <div class="q-px-md">Delete staff</div>
+        </div>
+        <div class="q-px-md q-pt-lg" style="font-size: 16px">
+          Do you want to delete this staff?
+        </div>
+        <div class="q-pt-md text-right">
           <q-btn flat label="Cancel" color="primary" v-close-popup />
           <q-btn
             flat
@@ -124,8 +126,8 @@
             color="primary"
             @click="deleteStaffBtn()"
           />
-        </q-card-actions>
-      </q-card>
+        </div>
+      </div>
     </q-dialog>
   </div>
 </template>
@@ -156,10 +158,11 @@ const closeDia = () => {
   isAddNew.value = false;
 };
 
+// Add new staff
 const saveNewStaff = async () => {
   if (!username.value || !password.value) {
     Notify.create({
-      message: "Username / password is required",
+      message: "Both username and password fields are required.",
       color: "negative",
       icon: "fa-solid fa-circle-exclamation",
       position: "top",
@@ -174,7 +177,7 @@ const saveNewStaff = async () => {
   const res = await axios.post(url, JSON.stringify(dataSent));
   if (res.data == "username exists") {
     Notify.create({
-      message: "Username exists",
+      message: "This username already exists.",
       color: "negative",
       position: "top",
       icon: "fa-solid fa-circle-exclamation",
@@ -183,7 +186,7 @@ const saveNewStaff = async () => {
   } else {
     isAddNew.value = false;
     Notify.create({
-      message: "Add new staff finish",
+      message: "New staff has been successfully added.",
       color: "positive",
       position: "top",
       icon: "fa-solid fa-circle-check",
@@ -212,7 +215,7 @@ const resetPassword = (username, ID) => {
 const resetPasswordBtn = async () => {
   if (!passwordReset.value) {
     Notify.create({
-      message: "Password is required",
+      message: "Password is required.",
       color: "negative",
       icon: "fa-solid fa-circle-exclamation",
       position: "top",
@@ -226,8 +229,11 @@ const resetPasswordBtn = async () => {
   };
   const res = await axios.post(url, JSON.stringify(dataSend));
   if (res.data == "reset password complete") {
+    const msg = ref(
+      `Password for ${usernameReset.value} has been reset successfully.`
+    );
     Notify.create({
-      message: "Reset password finish",
+      message: msg.value,
       color: "positive",
       position: "top",
       icon: "fa-solid fa-circle-check",
@@ -243,10 +249,12 @@ const CancelResetBtn = () => {
 
 //Delete staff
 const delID = ref(0);
+const delUsername = ref("");
 const isConfirmDel = ref(false);
-const deleteStaff = (id) => {
+const deleteStaff = (id, username) => {
   isConfirmDel.value = true;
   delID.value = id;
+  delUsername.value = username;
 };
 
 const deleteStaffBtn = async () => {
@@ -257,8 +265,9 @@ const deleteStaffBtn = async () => {
   const res = await axios.post(url, JSON.stringify(dataSend));
 
   if (res.data == "delete staff finish") {
+    const msg = ref(delUsername.value + " has been successfully deleted.");
     Notify.create({
-      message: "Delete staff finish",
+      message: msg,
       color: "positive",
       position: "top",
       icon: "fa-solid fa-circle-check",
@@ -277,11 +286,6 @@ const loadUser = async () => {
   userList.value = res.data;
 };
 loadUser();
-
-//check login
-const checkLogin = async () => {
-  const myKey = LocalStorage.getItem("myLey");
-};
 </script>
 
 <style lang="scss" scoped>
@@ -314,5 +318,12 @@ const checkLogin = async () => {
 }
 .resultBlue {
   background-color: #e5ebf8;
+}
+.deleteDia {
+  width: 100%;
+  max-width: 350px;
+  height: 160px;
+  background-color: white;
+  overflow: hidden;
 }
 </style>

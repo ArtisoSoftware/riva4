@@ -49,7 +49,7 @@
       <q-card class="newCategoryDia">
         <div class="headBar q-px-md">Add new category</div>
         <div class="justify-center row q-pt-md">
-          <div class="q-pt-sm" style="width: 65px">OrderID</div>
+          <div class="q-pt-sm" style="width: 65px">Order ID</div>
           <div style="width: 25px"></div>
           <div>
             <q-input v-model="orderID" outlined dense style="width: 350px" />
@@ -188,6 +188,15 @@ const closeDia = () => {
   isAddCategory.value = false;
 };
 const addCategoryBtn = async () => {
+  if (!orderID.value || !category.value) {
+    Notify.create({
+      message: "Both order ID and category fields are required.",
+      color: "negative",
+      icon: "fa-solid fa-circle-exclamation",
+      position: "top",
+    });
+    return;
+  }
   const url = serverData.value + "cc/addCategorySection.php";
   const dataSend = {
     orderID: orderID.value,
@@ -195,7 +204,7 @@ const addCategoryBtn = async () => {
   };
   const res = await axios.post(url, JSON.stringify(dataSend));
   Notify.create({
-    message: "Add new category finish",
+    message: "New category has been successfully added.",
     color: "positive",
     position: "top",
     icon: "fa-solid fa-circle-check",
@@ -231,6 +240,12 @@ const deleteCatBtn = async () => {
     delCatID: delCatID.value,
   };
   const res = await axios.post(url, JSON.stringify(dataSend));
+  Notify.create({
+    message: "The category has been successfully deleted.",
+    color: "positive",
+    position: "top",
+    icon: "fa-solid fa-circle-check",
+  });
   isConfirmDel.value = false;
   loadCategoryList();
 };
@@ -260,8 +275,14 @@ const editCategoryBtn = async () => {
     orderID: editCat.value.orderID,
     category: editCat.value.category,
   };
-  console.log(dataSend.value);
+
   const res = await axios.post(url, JSON.stringify(dataSend));
+  Notify.create({
+    message: "The category has been successfully updated.",
+    color: "positive",
+    position: "top",
+    icon: "fa-solid fa-circle-check",
+  });
   isEditCategory.value = false;
   loadCategoryList();
 };
