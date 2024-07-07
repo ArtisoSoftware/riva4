@@ -24,17 +24,17 @@
               <img src="images/rimenu.svg" alt="" />
             </q-item-section>
 
-            <q-item-section> RI </q-item-section>
+            <q-item-section> <B>RI</B> </q-item-section>
           </template>
         </q-expansion-item>
         <q-separator />
-        <q-expansion-item v-model="vaExpanded">
+        <q-expansion-item v-model="vaExpanded" dark>
           <template v-slot:header>
             <q-item-section avatar>
               <img src="images/vamenu.svg" alt="" />
             </q-item-section>
 
-            <q-item-section> VA </q-item-section>
+            <q-item-section> <B>VA</B> </q-item-section>
           </template>
           <div class="q-px-lg subTopic">General Data</div>
           <div
@@ -114,13 +114,13 @@
           </div>
         </q-expansion-item>
         <q-separator />
-        <q-expansion-item v-model="userExpanded">
+        <q-expansion-item v-model="userExpanded" dark>
           <template v-slot:header>
             <q-item-section avatar>
               <img src="images/usermenu.svg" alt="" />
             </q-item-section>
 
-            <q-item-section> User </q-item-section>
+            <q-item-section> <b>User</b> </q-item-section>
           </template>
           <div class="q-px-lg q-py-sm cursor-pointer">Member</div>
           <div

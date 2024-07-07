@@ -33,7 +33,7 @@
           <q-icon
             name="fa-solid fa-trash"
             class="cursor-pointer"
-            @click="delEco(item.id)"
+            @click="delEco(item.id, item.economyGroup)"
           />
         </div>
       </div>
@@ -174,7 +174,7 @@ const addNewEco = async () => {
     economic: input.value.economic,
   };
   const res = await axios.post(url, JSON.stringify(dataSent));
-  if (res.data == "This economic is exist.") {
+  if (res.data == "This economy group is exist.") {
     Notify.create({
       message: "This economy group is exist.",
       color: "negative",
@@ -206,9 +206,11 @@ onMounted(loadData);
 //***del Economic */
 const isConfirmDel = ref(false);
 const ecoDelID = ref(0);
-const delEco = (id) => {
+const ecoDelName = ref("");
+const delEco = (id, name) => {
   isConfirmDel.value = true;
   ecoDelID.value = id;
+  ecoDelName.value = name;
 };
 const deleteEconomic = async () => {
   const url = serverData.value + "cc/delEcoGroup.php";
@@ -216,8 +218,17 @@ const deleteEconomic = async () => {
     ecoID: ecoDelID.value,
   };
   const res = await axios.post(url, JSON.stringify(dataSend));
-  isConfirmDel.value = false;
-  loadData();
+  if (res.data == "delete finish") {
+    const msg = ref(ecoDelName.value + " has been successfully deleted.");
+    Notify.create({
+      message: msg,
+      color: "positive",
+      position: "top",
+      icon: "fa-solid fa-circle-check",
+    });
+    isConfirmDel.value = false;
+    loadData();
+  }
 };
 
 // ***Edit Economic
@@ -245,7 +256,7 @@ const EditEcoBtn = async () => {
   };
   const res = await axios.post(url, JSON.stringify(dataSend));
   Notify.create({
-    message: "Update economy group finish",
+    message: "Economic group data updated successfully.",
     color: "positive",
     position: "top",
     icon: "fa-solid fa-circle-check",
