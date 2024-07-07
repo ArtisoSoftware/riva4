@@ -190,6 +190,7 @@ const input = ref({
   region: "",
 });
 const regionList = ref([
+  "-",
   "East and North-East Asia",
   "Eastern Europe",
   "Latin America and the Caribbean",
