@@ -8,9 +8,6 @@
     </div>
     <div class="row justify-center q-pb-md">
       <div style="font-size: 16px">{{ usernameDisplay }}</div>
-      <div class="q-px-sm cursor-pointer" style="padding-top: 3px">
-        <img src="images/editProfile.svg" alt="" @click="editProfileBtn()" />
-      </div>
     </div>
     <div>
       <q-list
@@ -151,57 +148,14 @@
         </div>
       </div>
     </div>
-    <!-- edit password dialog -->
-    <q-dialog v-model="isEditProfile" persistent>
-      <div class="editProfileDia">
-        <div class="headBar">
-          <div class="q-px-md" style="font-size: 20px">Change password</div>
-        </div>
-        <div class="row items-center justify-center q-pt-md">
-          <div style="width: 180px">Current password</div>
-          <div><q-input outlined dense v-model="currentPassword" /></div>
-        </div>
-        <div class="row items-center justify-center q-pt-sm">
-          <div style="width: 180px">New password</div>
-          <div><q-input outlined dense v-model="newPassword" /></div>
-        </div>
-        <div class="row items-center justify-center q-pt-sm">
-          <div style="width: 180px">Confirm new password</div>
-          <div><q-input outlined dense v-model="ConfirmNewPassword" /></div>
-        </div>
-        <div class="q-px-md row justify-center q-pt-lg text-black">
-          <div>
-            <q-btn
-              label="Cancel"
-              no-caps
-              outline
-              @click="cancelEditProfileBtn"
-              style="width: 120px"
-            />
-          </div>
-          <div style="width: 25px"></div>
-          <div>
-            <q-btn
-              label="Save"
-              no-caps
-              style="width: 120px; background-color: #ffca4f"
-              @click="saveEditProfileBtn"
-            />
-          </div>
-        </div>
-      </div>
-    </q-dialog>
   </div>
 </template>
 
 <script setup>
-import { Notify, LocalStorage } from "quasar";
+import { LocalStorage } from "quasar";
 import { ref, watch, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import { serverSetup } from "../pages/server.js";
-import axios from "axios";
-
-const { serverData } = serverSetup();
 
 const vaExpanded = ref(false);
 const userExpanded = ref(false);
@@ -273,76 +227,6 @@ const goToStaff = () => {
 const logOutBtn = () => {
   LocalStorage.clear();
   router.push("/");
-};
-
-//Change password
-const isEditProfile = ref(false);
-const currentPassword = ref("");
-const newPassword = ref("");
-const ConfirmNewPassword = ref("");
-
-const editProfileBtn = () => {
-  isEditProfile.value = true;
-};
-const cancelEditProfileBtn = () => {
-  isEditProfile.value = false;
-};
-const saveEditProfileBtn = async () => {
-  if (
-    !newPassword.value ||
-    !currentPassword.value ||
-    !ConfirmNewPassword.value
-  ) {
-    Notify.create({
-      message:
-        "Current password / new password / confirm password is required.",
-      color: "negative",
-      icon: "fa-solid fa-circle-exclamation",
-      position: "top",
-    });
-    return;
-  }
-  if (newPassword.value != ConfirmNewPassword.value) {
-    Notify.create({
-      message: "New password and confirm password do not match.",
-      color: "negative",
-      icon: "fa-solid fa-circle-exclamation",
-      position: "top",
-    });
-    return;
-  }
-  const url = serverData.value + "cc/changePassword.php";
-  const dataSend = {
-    username: usernameDisplay.value,
-    oldpassword: currentPassword.value,
-    newpassword: newPassword.value,
-    hashkey: LocalStorage.getItem("myKey"),
-  };
-  const res = await axios.post(url, JSON.stringify(dataSend));
-  if (res.data == "update password finish") {
-    Notify.create({
-      message: "New password updated",
-      color: "positive",
-      position: "top",
-      icon: "fa-solid fa-circle-check",
-    });
-  } else if (res.data == "old password incorrect") {
-    Notify.create({
-      message: "Current password incorrect",
-      color: "negative",
-      icon: "fa-solid fa-circle-exclamation",
-      position: "top",
-    });
-  } else {
-    Notify.create({
-      message: "something wrongs",
-      color: "negative",
-      icon: "fa-solid fa-circle-exclamation",
-      position: "top",
-    });
-    localStorage.clear();
-    router.push("/");
-  }
 };
 
 const usernameDisplay = ref("");
