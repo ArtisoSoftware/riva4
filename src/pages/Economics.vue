@@ -14,7 +14,7 @@
       <div class="headBar q-mt-md row q-px-md">
         <div style="width: 5%">No.</div>
         <div class="col q-px-lg">Economic</div>
-        <div style="width: 15%" class="text-center">iso</div>
+        <div style="width: 15%" class="text-center">ISO</div>
         <div style="width: 30%" class="text-center">region</div>
         <div style="width: 10%" class="text-center">Edit</div>
         <div style="width: 10%" class="text-center">Delete</div>

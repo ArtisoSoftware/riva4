@@ -59,7 +59,7 @@
       <q-card class="newCategoryDia">
         <div class="headBar q-px-md">Add new sub-category</div>
         <div class="justify-center row q-pt-md">
-          <div class="q-pt-sm" style="width: 100px">OrderID</div>
+          <div class="q-pt-sm" style="width: 100px">Order ID</div>
           <div style="width: 25px"></div>
           <div>
             <q-input v-model="orderID" outlined dense style="width: 350px" />
@@ -224,6 +224,17 @@ const closeAddDia = () => {
   isAddSub.value = false;
 };
 const addSubCategoryBtn = async () => {
+  if (!orderID.value || !subCategory.value) {
+    Notify.create({
+      message: "Both order ID and sub-category fields are required.",
+      color: "negative",
+      icon: "fa-solid fa-circle-exclamation",
+      position: "top",
+    });
+
+    return;
+  }
+
   const url = serverData.value + "cc/addSubCategorySection.php";
   const dataSend = {
     orderID: orderID.value,
@@ -233,7 +244,7 @@ const addSubCategoryBtn = async () => {
 
   const res = await axios.post(url, JSON.stringify(dataSend));
   Notify.create({
-    message: "Add new subcategory",
+    message: "New sub-category has been successfully added.",
     color: "positive",
     position: "top",
     icon: "fa-solid fa-circle-check",
