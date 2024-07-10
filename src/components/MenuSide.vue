@@ -4,7 +4,7 @@
       <img src="images/rivalogo.svg" alt="" />
     </div>
     <div style="text-align: center">
-      <img src="images/profile.png" alt="" />
+      <img src="images/profile.svg" alt="" />
     </div>
     <div class="row justify-center q-pb-md">
       <div style="font-size: 16px">{{ usernameDisplay }}</div>
