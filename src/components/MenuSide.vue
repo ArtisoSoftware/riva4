@@ -15,14 +15,23 @@
         class="rounded-borders"
         style="width: 90%; background-color: #0f4c8a; margin-left: 5%"
       >
-        <q-expansion-item disable>
+        <q-expansion-item v-model="riExpanded" dark>
           <template v-slot:header>
             <q-item-section avatar>
               <img src="images/rimenu.svg" alt="" />
             </q-item-section>
 
-            <q-item-section> <B>RI</B> </q-item-section>
+            <q-item-section> <b>RI</b> </q-item-section>
           </template>
+          <div class="q-px-lg subTopic">General Data</div>
+
+          <div
+            class="q-px-lg q-py-sm cursor-pointer"
+            :class="{ selectedMenu: menu == 11 }"
+            @click="goToRIEco()"
+          >
+            Economics
+          </div>
         </q-expansion-item>
         <q-separator />
         <q-expansion-item v-model="vaExpanded" dark>
@@ -31,7 +40,7 @@
               <img src="images/vamenu.svg" alt="" />
             </q-item-section>
 
-            <q-item-section> <B>VA</B> </q-item-section>
+            <q-item-section> <b>VA</b> </q-item-section>
           </template>
           <div class="q-px-lg subTopic">General Data</div>
           <div
@@ -159,6 +168,7 @@ import { serverSetup } from "../pages/server.js";
 
 const vaExpanded = ref(false);
 const userExpanded = ref(false);
+const riExpanded = ref(false);
 const router = useRouter();
 // รับ prop จาก parent
 const props = defineProps({
@@ -175,17 +185,27 @@ if (props.openMenu == 3) {
   userExpanded.value = true;
 } else if (props.openMenu == 2) {
   vaExpanded.value = true;
+} else if (props.openMenu == 1) {
+  riExpanded.value = true;
 }
 
 watch(vaExpanded, (newVal) => {
   if (newVal) {
     userExpanded.value = false;
+    riExpanded.value = false;
   }
 });
 
 watch(userExpanded, (newVal) => {
   if (newVal) {
     vaExpanded.value = false;
+    riExpanded.value = false;
+  }
+});
+watch(riExpanded, (newVal) => {
+  if (newVal) {
+    vaExpanded.value = false;
+    userExpanded.value = false;
   }
 });
 
@@ -222,6 +242,10 @@ const goTocountrybriefs = () => {
 
 const goToStaff = () => {
   router.push("/staff");
+};
+
+const goToRIEco = () => {
+  router.push("/rieco");
 };
 
 const logOutBtn = () => {

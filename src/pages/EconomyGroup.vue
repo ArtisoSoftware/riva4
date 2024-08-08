@@ -14,7 +14,7 @@
       <div class="headBar q-mt-md row q-px-md">
         <div style="width: 5%">No.</div>
         <div class="col q-px-lg">Economy group</div>
-
+        <div style="width: 10%" class="text-center">ISO</div>
         <div style="width: 10%" class="text-center">Edit</div>
         <div style="width: 10%" class="text-center">Delete</div>
       </div>
@@ -26,6 +26,7 @@
       >
         <div style="width: 5%">{{ index + 1 }}</div>
         <div class="col q-px-lg">{{ item.economyGroup }}</div>
+        <div style="width: 10%" class="text-center">{{ item.iso }}</div>
         <div style="width: 10%" class="text-center">
           <u class="cursor-pointer" @click="editEco(item)">Edit</u>
         </div>
@@ -52,6 +53,13 @@
               outlined
               style="width: 200px"
             />
+          </div>
+        </div>
+        <div class="row justify-center q-pt-md">
+          <div class="q-pt-sm" style="width: 100px">iso</div>
+          <div class="q-px-md"></div>
+          <div>
+            <q-input v-model="input.iso" dense outlined style="width: 200px" />
           </div>
         </div>
 
@@ -87,6 +95,13 @@
               outlined
               style="width: 200px"
             />
+          </div>
+        </div>
+        <div class="row justify-center q-pt-md">
+          <div class="q-pt-sm" style="width: 100px">ISO</div>
+          <div class="q-px-md"></div>
+          <div>
+            <q-input v-model="edit.iso" dense outlined style="width: 200px" />
           </div>
         </div>
 
@@ -145,6 +160,7 @@ const { serverData } = serverSetup();
 const addNewEcoDia = ref(false);
 const input = ref({
   economic: "",
+  iso: "",
 });
 
 //****Add new economic
@@ -160,7 +176,7 @@ const cancelBtn = () => {
 };
 
 const addNewEco = async () => {
-  if (!input.value.economic) {
+  if (!input.value.economic || !input.value.iso) {
     Notify.create({
       message: "Economy group field is required.",
       color: "negative",
@@ -172,6 +188,7 @@ const addNewEco = async () => {
   const url = serverData.value + "cc/addNewEcoGroup.php";
   const dataSent = {
     economic: input.value.economic,
+    iso: input.value.iso,
   };
   const res = await axios.post(url, JSON.stringify(dataSent));
   if (res.data == "This economy group is exist.") {
@@ -236,10 +253,12 @@ const isEditEcoDia = ref(false);
 const editEcoID = ref(0);
 const edit = ref({
   economic: "",
+  iso: "",
 });
 const editEco = (item) => {
   editEcoID.value = item.id;
   edit.value.economic = item.economyGroup;
+  edit.value.iso = item.iso;
 
   isEditEcoDia.value = true;
 };
@@ -252,6 +271,7 @@ const EditEcoBtn = async () => {
   const url = serverData.value + "cc/editEcoGroup.php";
   const dataSend = {
     economic: edit.value.economic,
+    iso: edit.value.iso,
     id: editEcoID.value,
   };
   const res = await axios.post(url, JSON.stringify(dataSend));
@@ -281,7 +301,7 @@ const EditEcoBtn = async () => {
 .addNewEcoDiv {
   width: 100%;
   max-width: 450px;
-  height: 185px;
+  height: 245px;
 }
 .btnCancel {
   width: 120px;

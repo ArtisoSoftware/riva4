@@ -58,6 +58,11 @@ const routes = [
     component: () => import("pages/Staff.vue"),
   },
 
+  {
+    path: "/rieco",
+    component: () => import("pages/RIEco.vue"),
+  },
+
   // Always leave this as last one,
   // but you can also remove it
   {
