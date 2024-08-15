@@ -50,10 +50,6 @@ const routes = [
     component: () => import("src/pages/CountryBriefs.vue"),
   },
   {
-    path: "/exportingSub/:id",
-    component: () => import("src/pages/ExportingSectionSub.vue"),
-  },
-  {
     path: "/staff",
     component: () => import("pages/Staff.vue"),
   },

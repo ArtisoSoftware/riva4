@@ -1,10 +1,10 @@
 <template>
   <div class="row">
     <div style="width: 260px"><MenuSide :menu="24" :openMenu="2" /></div>
-    <div class="col q-pa-md">
+    <div class="col q-pa-md" style="height: 100dvh; overflow-y: auto">
       <div class="text-right">
         <q-btn
-          label="Add category"
+          label="Add section"
           class="btn"
           icon="fa-solid fa-plus"
           no-caps
@@ -13,8 +13,8 @@
       </div>
       <div class="headBar q-mt-md row q-px-md">
         <div style="width: 10%" class="text-center">Order ID</div>
-        <div class="col q-px-lg">Category name</div>
-        <div style="width: 20%" class="text-center">Sub-category</div>
+        <div class="col q-px-lg">Sector name</div>
+        <div style="width: 15%" class="text-center">Short name</div>
         <div style="width: 10%" class="text-center">Edit</div>
         <div style="width: 10%" class="text-center">Delete</div>
       </div>
@@ -26,11 +26,7 @@
       >
         <div style="width: 10%" class="text-center">{{ item.orderID }}</div>
         <div class="col q-px-lg">{{ item.category }}</div>
-        <div style="width: 20%" class="text-center">
-          <u class="cursor-pointer" @click="goToSubCat(item.id)"
-            >Sub-category</u
-          >
-        </div>
+        <div style="width: 15%" class="text-center">{{ item.shortname }}</div>
         <div style="width: 10%" class="text-center">
           <u class="cursor-pointer" @click="editCatBtn(item)">Edit</u>
         </div>
@@ -47,19 +43,27 @@
     <!-- Dialog for add new category -->
     <q-dialog v-model="isAddCategory" persistent>
       <q-card class="newCategoryDia">
-        <div class="headBar q-px-md">Add new category</div>
+        <div class="headBar q-px-md">Add new section</div>
         <div class="justify-center row q-pt-md">
-          <div class="q-pt-sm" style="width: 65px">Order ID</div>
+          <div class="q-pt-sm" style="width: 95px">Order ID</div>
           <div style="width: 25px"></div>
           <div>
-            <q-input v-model="orderID" outlined dense style="width: 350px" />
+            <q-input v-model="orderID" outlined dense style="width: 300px" />
           </div>
         </div>
         <div class="justify-center row q-pt-md">
-          <div class="q-pt-sm" style="width: 65px">Category</div>
+          <div class="q-pt-sm" style="width: 95px">Section</div>
           <div style="width: 25px"></div>
           <div>
-            <q-input v-model="category" outlined dense style="width: 350px" />
+            <q-input v-model="category" outlined dense style="width: 300px" />
+          </div>
+        </div>
+
+        <div class="justify-center row q-pt-md">
+          <div class="q-pt-sm" style="width: 95px">Short name</div>
+          <div style="width: 25px"></div>
+          <div>
+            <q-input v-model="shortName" outlined dense style="width: 300px" />
           </div>
         </div>
 
@@ -89,9 +93,9 @@
     <!-- Dialog for edit category -->
     <q-dialog v-model="isEditCategory" persistent>
       <q-card class="newCategoryDia">
-        <div class="headBar q-px-md">Edit category</div>
+        <div class="headBar q-px-md">Edit section</div>
         <div class="justify-center row q-pt-md">
-          <div class="q-pt-sm" style="width: 65px">OrderID</div>
+          <div class="q-pt-sm" style="width: 95px">OrderID</div>
           <div style="width: 25px"></div>
           <div>
             <q-input
@@ -103,11 +107,24 @@
           </div>
         </div>
         <div class="justify-center row q-pt-md">
-          <div class="q-pt-sm" style="width: 65px">Category</div>
+          <div class="q-pt-sm" style="width: 95px">Sector name</div>
           <div style="width: 25px"></div>
           <div>
             <q-input
               v-model="editCat.category"
+              outlined
+              dense
+              style="width: 350px"
+            />
+          </div>
+        </div>
+
+        <div class="justify-center row q-pt-md">
+          <div class="q-pt-sm" style="width: 95px">Short name</div>
+          <div style="width: 25px"></div>
+          <div>
+            <q-input
+              v-model="editCat.shortname"
               outlined
               dense
               style="width: 350px"
@@ -179,10 +196,12 @@ const router = useRouter();
 const isAddCategory = ref(false);
 const orderID = ref("");
 const category = ref("");
+const shortName = ref("");
 const AddCategory = () => {
   isAddCategory.value = true;
   orderID.value = "";
   category.value = "";
+  shortName.value = "";
 };
 const closeDia = () => {
   isAddCategory.value = false;
@@ -201,6 +220,7 @@ const addCategoryBtn = async () => {
   const dataSend = {
     orderID: orderID.value,
     category: category.value,
+    shortname: shortName.value,
   };
   const res = await axios.post(url, JSON.stringify(dataSend));
   Notify.create({
@@ -256,11 +276,13 @@ const editCat = ref({
   id: "",
   orderID: "",
   category: "",
+  shortname: "",
 });
 const editCatBtn = (item) => {
   editCat.value.id = item.id;
   editCat.value.orderID = item.orderID;
   editCat.value.category = item.category;
+  editCat.value.shortname = item.shortname;
   isEditCategory.value = true;
 };
 
@@ -274,6 +296,7 @@ const editCategoryBtn = async () => {
     id: editCat.value.id,
     orderID: editCat.value.orderID,
     category: editCat.value.category,
+    shortname: editCat.value.shortname,
   };
 
   const res = await axios.post(url, JSON.stringify(dataSend));
@@ -285,11 +308,6 @@ const editCategoryBtn = async () => {
   });
   isEditCategory.value = false;
   loadCategoryList();
-};
-
-//Go to sub-category
-const goToSubCat = (id) => {
-  router.push("/exportingSub/" + id);
 };
 </script>
 
@@ -308,7 +326,7 @@ const goToSubCat = (id) => {
 .newCategoryDia {
   width: 100%;
   max-width: 500px;
-  height: 235px;
+  height: 285px;
 }
 .CancelBtn {
   width: 120px;
