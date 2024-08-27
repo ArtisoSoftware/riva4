@@ -12,11 +12,13 @@
         />
       </div>
       <div class="headBar q-mt-md row q-px-md">
-        <div style="width: 10%" class="text-center">Order ID</div>
+        <div style="width: 100px" class="text-center">Order ID</div>
         <div class="col q-px-lg">Sector name</div>
+
         <div style="width: 15%" class="text-center">Short name</div>
-        <div style="width: 10%" class="text-center">Edit</div>
-        <div style="width: 10%" class="text-center">Delete</div>
+        <div style="width: 15%" class="text-center">Section group</div>
+        <div style="width: 70px" class="text-center">Edit</div>
+        <div style="width: 70px" class="text-center">Delete</div>
       </div>
       <div
         v-for="(item, index) in categoryList"
@@ -24,13 +26,16 @@
         class="row resultList q-px-md"
         :class="{ resultBlue: index % 2 == 1 }"
       >
-        <div style="width: 10%" class="text-center">{{ item.orderID }}</div>
+        <div style="width: 100px" class="text-center">{{ item.orderID }}</div>
         <div class="col q-px-lg">{{ item.category }}</div>
         <div style="width: 15%" class="text-center">{{ item.shortname }}</div>
-        <div style="width: 10%" class="text-center">
+        <div style="width: 15%" class="text-center ellipsis">
+          {{ item.sectiongroup }}
+        </div>
+        <div style="width: 70px" class="text-center">
           <u class="cursor-pointer" @click="editCatBtn(item)">Edit</u>
         </div>
-        <div style="width: 10%" class="text-center">
+        <div style="width: 70px" class="text-center">
           <q-icon
             name="fa-solid fa-trash"
             class="cursor-pointer"
@@ -64,6 +69,20 @@
           <div style="width: 25px"></div>
           <div>
             <q-input v-model="shortName" outlined dense style="width: 300px" />
+          </div>
+        </div>
+
+        <div class="justify-center row q-pt-md">
+          <div class="q-pt-sm" style="width: 95px">Section group</div>
+          <div style="width: 25px"></div>
+          <div>
+            <q-select
+              v-model="sectionGroup"
+              :options="sectionGroupList"
+              outlined
+              dense
+              style="width: 300px"
+            />
           </div>
         </div>
 
@@ -132,6 +151,20 @@
           </div>
         </div>
 
+        <div class="justify-center row q-pt-md">
+          <div class="q-pt-sm" style="width: 95px">Section group</div>
+          <div style="width: 25px"></div>
+          <div>
+            <q-select
+              v-model="editCat.sectiongroup"
+              :options="sectionGroupList"
+              outlined
+              dense
+              style="width: 350px"
+            />
+          </div>
+        </div>
+
         <div class="q-px-md row justify-center q-pt-md">
           <div>
             <q-btn
@@ -191,17 +224,35 @@ checkHashkey();
 
 const { serverData } = serverSetup();
 const router = useRouter();
+const sectionGroupList = ref([
+  "Agriculture",
+  "Construction",
+  "Manufacturing High and medium tech",
+  "Manufacturing Low tech",
+  "Mining",
+  "Services Financial",
+  "Services ICT",
+  "Services Private household",
+  "Services Property and business",
+  "Services Public and welfare",
+  "Services Tourism",
+  "Services Trade and repair",
+  "Services Transport",
+  "Utilities",
+]);
 
 // add new category
 const isAddCategory = ref(false);
 const orderID = ref("");
 const category = ref("");
 const shortName = ref("");
+const sectionGroup = ref("");
 const AddCategory = () => {
   isAddCategory.value = true;
   orderID.value = "";
   category.value = "";
   shortName.value = "";
+  sectionGroup.value = "Agriculture";
 };
 const closeDia = () => {
   isAddCategory.value = false;
@@ -221,6 +272,7 @@ const addCategoryBtn = async () => {
     orderID: orderID.value,
     category: category.value,
     shortname: shortName.value,
+    sectiongroup: sectionGroup.value,
   };
   const res = await axios.post(url, JSON.stringify(dataSend));
   Notify.create({
@@ -277,12 +329,14 @@ const editCat = ref({
   orderID: "",
   category: "",
   shortname: "",
+  sectiongroup: "",
 });
 const editCatBtn = (item) => {
-  editCat.value.id = item.id;
+  editCat.value.id = item.catID;
   editCat.value.orderID = item.orderID;
   editCat.value.category = item.category;
   editCat.value.shortname = item.shortname;
+  editCat.value.sectiongroup = item.sectiongroup;
   isEditCategory.value = true;
 };
 
@@ -297,6 +351,7 @@ const editCategoryBtn = async () => {
     orderID: editCat.value.orderID,
     category: editCat.value.category,
     shortname: editCat.value.shortname,
+    sectiongroup: editCat.value.sectiongroup,
   };
 
   const res = await axios.post(url, JSON.stringify(dataSend));
@@ -326,7 +381,7 @@ const editCategoryBtn = async () => {
 .newCategoryDia {
   width: 100%;
   max-width: 500px;
-  height: 285px;
+  height: 345px;
 }
 .CancelBtn {
   width: 120px;

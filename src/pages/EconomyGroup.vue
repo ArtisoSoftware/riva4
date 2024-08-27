@@ -14,6 +14,7 @@
       <div class="headBar q-mt-md row q-px-md">
         <div style="width: 5%">No.</div>
         <div class="col q-px-lg">Economy group</div>
+        <div style="width: 10%" class="text-center">economics</div>
         <div style="width: 10%" class="text-center">ISO</div>
         <div style="width: 10%" class="text-center">Edit</div>
         <div style="width: 10%" class="text-center">Delete</div>
@@ -26,6 +27,9 @@
       >
         <div style="width: 5%">{{ index + 1 }}</div>
         <div class="col q-px-lg">{{ item.economyGroup }}</div>
+        <div style="width: 10%" class="text-center">
+          {{ item.ecoList.length == 0 ? "0" : item.ecoList.split(", ").length }}
+        </div>
         <div style="width: 10%" class="text-center">{{ item.iso }}</div>
         <div style="width: 10%" class="text-center">
           <u class="cursor-pointer" @click="editEco(item)">Edit</u>
@@ -43,23 +47,35 @@
     <q-dialog v-model="addNewEcoDia" persistent>
       <q-card class="addNewEcoDiv">
         <div class="q-px-md headBar">Add new economy group</div>
-        <div class="row justify-center q-pt-md">
-          <div class="q-pt-sm" style="width: 100px">Economy group</div>
-          <div class="q-px-md"></div>
-          <div>
+        <div class="row justify-center q-pt-md q-px-md">
+          <div class="q-pt-sm" style="width: 120px">Economy group</div>
+
+          <div class="col">
             <q-input
               v-model="input.economic"
               dense
               outlined
-              style="width: 200px"
+              style="width: 100%"
             />
           </div>
         </div>
-        <div class="row justify-center q-pt-md">
-          <div class="q-pt-sm" style="width: 100px">iso</div>
-          <div class="q-px-md"></div>
-          <div>
-            <q-input v-model="input.iso" dense outlined style="width: 200px" />
+        <div class="row justify-center q-pt-md q-px-md">
+          <div class="q-pt-sm" style="width: 120px">ISO</div>
+          <div class="col">
+            <q-input v-model="input.iso" dense outlined style="width: 100%" />
+          </div>
+        </div>
+
+        <div class="row justify-center q-pt-md q-px-md">
+          <div class="q-pt-sm" style="width: 120px">Economics</div>
+          <div class="col">
+            <q-input
+              v-model="input.ecoList"
+              dense
+              outlined
+              style="width: 100%"
+              type="textarea"
+            />
           </div>
         </div>
 
@@ -85,23 +101,34 @@
     <q-dialog v-model="isEditEcoDia" persistent>
       <q-card class="addNewEcoDiv">
         <div class="q-px-md headBar">Edit economy group</div>
-        <div class="row justify-center q-pt-md">
-          <div class="q-pt-sm" style="width: 100px">Economy group</div>
-          <div class="q-px-md"></div>
-          <div>
+        <div class="row justify-center q-pt-md q-px-md">
+          <div class="q-pt-sm" style="width: 120px">Economy group</div>
+          <div class="col">
             <q-input
               v-model="edit.economic"
               dense
               outlined
-              style="width: 200px"
+              style="width: 100%"
             />
           </div>
         </div>
-        <div class="row justify-center q-pt-md">
-          <div class="q-pt-sm" style="width: 100px">ISO</div>
-          <div class="q-px-md"></div>
-          <div>
-            <q-input v-model="edit.iso" dense outlined style="width: 200px" />
+        <div class="row justify-center q-pt-md q-px-md">
+          <div class="q-pt-sm" style="width: 120px">ISO</div>
+          <div class="col">
+            <q-input v-model="edit.iso" dense outlined style="width: 100%" />
+          </div>
+        </div>
+
+        <div class="row justify-center q-pt-md q-px-md">
+          <div class="q-pt-sm" style="width: 120px">Economics</div>
+          <div class="col">
+            <q-input
+              v-model="edit.ecoList"
+              dense
+              outlined
+              style="width: 100%"
+              type="textarea"
+            />
           </div>
         </div>
 
@@ -161,6 +188,7 @@ const addNewEcoDia = ref(false);
 const input = ref({
   economic: "",
   iso: "",
+  ecoList: "",
 });
 
 //****Add new economic
@@ -168,6 +196,8 @@ const input = ref({
 const AddNewEcoBtn = () => {
   addNewEcoDia.value = true;
   input.value.economic = "";
+  input.value.iso = "";
+  input.value.ecoList = "";
 };
 
 const cancelBtn = () => {
@@ -189,6 +219,7 @@ const addNewEco = async () => {
   const dataSent = {
     economic: input.value.economic,
     iso: input.value.iso,
+    ecoList: input.value.ecoList,
   };
   const res = await axios.post(url, JSON.stringify(dataSent));
   if (res.data == "This economy group is exist.") {
@@ -254,11 +285,13 @@ const editEcoID = ref(0);
 const edit = ref({
   economic: "",
   iso: "",
+  ecoList: "",
 });
 const editEco = (item) => {
   editEcoID.value = item.id;
   edit.value.economic = item.economyGroup;
   edit.value.iso = item.iso;
+  edit.value.ecoList = item.ecoList;
 
   isEditEcoDia.value = true;
 };
@@ -273,6 +306,7 @@ const EditEcoBtn = async () => {
     economic: edit.value.economic,
     iso: edit.value.iso,
     id: editEcoID.value,
+    ecoList: edit.value.ecoList,
   };
   const res = await axios.post(url, JSON.stringify(dataSend));
   Notify.create({
@@ -300,8 +334,8 @@ const EditEcoBtn = async () => {
 }
 .addNewEcoDiv {
   width: 100%;
-  max-width: 450px;
-  height: 245px;
+  max-width: 550px;
+  height: 370px;
 }
 .btnCancel {
   width: 120px;

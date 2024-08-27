@@ -13,6 +13,7 @@
           />
         </div>
         <div class="col">
+          <div>Main chart</div>
           <div class="row">
             <div>
               <q-file
@@ -56,6 +57,51 @@
               />
             </div>
           </div>
+
+          <div>Detail chart</div>
+          <div class="row">
+            <div>
+              <q-file
+                v-model="file2"
+                label="Upload CSV"
+                accept=".csv"
+                outlined
+                style="width: 200px"
+                dense
+              />
+            </div>
+            <div class="q-px-md">
+              <q-btn
+                label="Upload"
+                no-caps
+                class="btnLine1"
+                color="primary"
+                @click="uploadFile2"
+              />
+            </div>
+          </div>
+          <div class="q-pt-md row">
+            <div>
+              <q-btn
+                label="Clear data"
+                no-caps
+                class="btnLine2"
+                color="negative"
+                outline
+                @click="clearData2()"
+              />
+            </div>
+            <div class="q-pl-md">
+              <q-btn
+                label="Optimize database"
+                no-caps
+                class="btnLine2"
+                color="secondary"
+                outline
+                @click="makeIndex2()"
+              />
+            </div>
+          </div>
         </div>
       </div>
       <hr style="width: 100%" />
@@ -82,6 +128,29 @@
         </q-card>
       </q-dialog>
 
+      <q-dialog v-model="confirmDialog2">
+        <q-card>
+          <q-card-section>
+            <div class="text-h6">Confirm Deletion</div>
+            <div>
+              The following countries already exist in the database:
+              {{ existingCountries2.join(", ") }}. Do you want to delete them
+              before uploading the new data?
+            </div>
+          </q-card-section>
+
+          <q-card-actions align="right">
+            <q-btn flat label="Cancel" color="primary" v-close-popup />
+            <q-btn
+              flat
+              label="Delete"
+              color="primary"
+              @click="confirmDeletion2()"
+            />
+          </q-card-actions>
+        </q-card>
+      </q-dialog>
+
       <q-dialog v-model="confirmClearData1">
         <q-card>
           <q-card-section>
@@ -102,6 +171,28 @@
           </q-card-actions>
         </q-card>
       </q-dialog>
+
+      <q-dialog v-model="confirmClearData2">
+        <q-card>
+          <q-card-section>
+            <div class="text-h6">Confirm Deletion</div>
+            <div>
+              Do you want to delete all detail data from GVC top 5 partner
+              economies?
+            </div>
+          </q-card-section>
+
+          <q-card-actions align="right">
+            <q-btn flat label="Cancel" color="primary" v-close-popup />
+            <q-btn
+              flat
+              label="Delete"
+              color="primary"
+              @click="confirmClear2()"
+            />
+          </q-card-actions>
+        </q-card>
+      </q-dialog>
     </div>
   </div>
 </template>
@@ -118,6 +209,12 @@ const existingCountries1 = ref([]);
 
 const confirmDialog1 = ref(false);
 const confirmClearData1 = ref(false);
+
+const file2 = ref(null);
+const existingCountries2 = ref([]);
+
+const confirmDialog2 = ref(false);
+const confirmClearData2 = ref(false);
 
 const uploadFile1 = async () => {
   if (file1.value) {
@@ -156,6 +253,43 @@ const uploadFile1 = async () => {
   }
 };
 
+const uploadFile2 = async () => {
+  if (file2.value) {
+    const formData = new FormData();
+
+    formData.append("file", file2.value);
+
+    try {
+      let url = serverData.value + "cc/gvcupload3a.php";
+      const response = await fetch(url, {
+        method: "POST",
+        body: formData,
+      });
+      const result = await response.json();
+
+      if (result.existingCountries.length > 0) {
+        existingCountries2.value = result.existingCountries;
+        confirmDialog2.value = true;
+      } else {
+        Notify.create({
+          message: "Data uploaded successfully.",
+          color: "positive",
+          position: "top",
+          icon: "fa-solid fa-circle-check",
+        });
+        file2.value = null;
+      }
+    } catch (error) {}
+  } else {
+    Notify.create({
+      message: "Please select CSV file before uploading",
+      color: "negative",
+      icon: "fa-solid fa-circle-exclamation",
+      position: "top",
+    });
+  }
+};
+
 const confirmDeletion1 = async () => {
   let url = serverData.value + "cc/gvcdelete3.php";
   let dataSend = {
@@ -166,8 +300,22 @@ const confirmDeletion1 = async () => {
   confirmDialog1.value = false;
 };
 
+const confirmDeletion2 = async () => {
+  let url = serverData.value + "cc/gvcdelete3a.php";
+  let dataSend = {
+    exp_country: existingCountries2.value,
+  };
+  let res = await axios.post(url, JSON.stringify(dataSend));
+  uploadFile2();
+  confirmDialog2.value = false;
+};
+
 const clearData1 = () => {
   confirmClearData1.value = true;
+};
+
+const clearData2 = () => {
+  confirmClearData2.value = true;
 };
 
 const confirmClear1 = async () => {
@@ -183,8 +331,33 @@ const confirmClear1 = async () => {
   confirmClearData1.value = false;
 };
 
+const confirmClear2 = async () => {
+  let res2 = await axios.get(serverData.value + "cc/gvcclear3a.php");
+  if (res2.data == "clear data successfully") {
+    Notify.create({
+      message: "Clear all data successfully.",
+      color: "positive",
+      position: "top",
+      icon: "fa-solid fa-circle-check",
+    });
+  }
+  confirmClearData2.value = false;
+};
+
 const makeIndex1 = async () => {
   let res2 = await axios.get(serverData.value + "cc/gvcmakeindex3.php");
+  if (res2.data == "finish") {
+    Notify.create({
+      message: "Optimize database successfully.",
+      color: "positive",
+      position: "top",
+      icon: "fa-solid fa-circle-check",
+    });
+  }
+};
+
+const makeIndex2 = async () => {
+  let res2 = await axios.get(serverData.value + "cc/gvcmakeindex3a.php");
   if (res2.data == "finish") {
     Notify.create({
       message: "Optimize database successfully.",

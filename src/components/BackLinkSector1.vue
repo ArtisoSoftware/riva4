@@ -2,18 +2,17 @@
   <div>
     <div style="width: 1000px; margin: auto">
       <div class="q-px-xl q-py-md" style="font-size: 24px; font-weight: 500">
-        Section 2
+        Section 1
       </div>
       <div class="row items-center">
         <div class="col-8">
           <img
-            src="../../public/images/byExporting.jpg"
+            src="../../public/images/28-1.jpg"
             alt=""
             style="width: 100%; max-width: 800px"
           />
         </div>
         <div class="col">
-          <div>Main chart</div>
           <div class="row">
             <div>
               <q-file
@@ -35,6 +34,10 @@
               />
             </div>
           </div>
+          <div class="row">
+            The CSV file you upload must contain data for only one economic
+            exp_country, and the file size should not exceed 200 MB.
+          </div>
           <div class="q-pt-md row">
             <div>
               <q-btn
@@ -54,51 +57,6 @@
                 color="secondary"
                 outline
                 @click="makeIndex1()"
-              />
-            </div>
-          </div>
-
-          <div class="q-pt-md">Detail chart</div>
-          <div class="row">
-            <div>
-              <q-file
-                v-model="file2"
-                label="Upload CSV"
-                accept=".csv"
-                outlined
-                style="width: 200px"
-                dense
-              />
-            </div>
-            <div class="q-px-md">
-              <q-btn
-                label="Upload"
-                no-caps
-                class="btnLine1"
-                color="primary"
-                @click="uploadFile1a"
-              />
-            </div>
-          </div>
-          <div class="q-pt-md row">
-            <div>
-              <q-btn
-                label="Clear data"
-                no-caps
-                class="btnLine2"
-                color="negative"
-                outline
-                @click="clearData1a()"
-              />
-            </div>
-            <div class="q-pl-md">
-              <q-btn
-                label="Optimize database"
-                no-caps
-                class="btnLine2"
-                color="secondary"
-                outline
-                @click="makeIndex1a()"
               />
             </div>
           </div>
@@ -128,35 +86,13 @@
         </q-card>
       </q-dialog>
 
-      <q-dialog v-model="confirmDialog2">
-        <q-card>
-          <q-card-section>
-            <div class="text-h6">Confirm Deletion</div>
-            <div>
-              The following countries already exist in the database:
-              {{ existingCountries2.join(", ") }}. Do you want to delete them
-              before uploading the new data?
-            </div>
-          </q-card-section>
-
-          <q-card-actions align="right">
-            <q-btn flat label="Cancel" color="primary" v-close-popup />
-            <q-btn
-              flat
-              label="Delete"
-              color="primary"
-              @click="confirmDeletion1a()"
-            />
-          </q-card-actions>
-        </q-card>
-      </q-dialog>
-
       <q-dialog v-model="confirmClearData1">
         <q-card>
           <q-card-section>
             <div class="text-h6">Confirm Deletion</div>
             <div>
-              Do you want to delete all data from GVC top 5 exporting sectors?
+              Do you want to delete all data from structrue of value added
+              graph#1?
             </div>
           </q-card-section>
 
@@ -171,28 +107,6 @@
           </q-card-actions>
         </q-card>
       </q-dialog>
-
-      <q-dialog v-model="confirmClearData2">
-        <q-card>
-          <q-card-section>
-            <div class="text-h6">Confirm Deletion</div>
-            <div>
-              Do you want to delete all detail data from GVC top 5 exporting
-              sectors?
-            </div>
-          </q-card-section>
-
-          <q-card-actions align="right">
-            <q-btn flat label="Cancel" color="primary" v-close-popup />
-            <q-btn
-              flat
-              label="Delete"
-              color="primary"
-              @click="confirmClear1a()"
-            />
-          </q-card-actions>
-        </q-card>
-      </q-dialog>
     </div>
   </div>
 </template>
@@ -202,18 +116,16 @@ import { ref } from "vue";
 import { serverSetup } from "../pages/server";
 import { Notify } from "quasar";
 import axios from "axios";
+import { useQuasar } from "quasar";
 const { serverData } = serverSetup();
 
+const $q = useQuasar();
+
 const file1 = ref(null);
-const file2 = ref(null);
 const existingCountries1 = ref([]);
-const existingCountries2 = ref([]);
 
 const confirmDialog1 = ref(false);
-const confirmDialog2 = ref(false);
-
 const confirmClearData1 = ref(false);
-const confirmClearData2 = ref(false);
 
 const uploadFile1 = async () => {
   if (file1.value) {
@@ -222,13 +134,15 @@ const uploadFile1 = async () => {
     formData.append("file", file1.value);
 
     try {
-      let url = serverData.value + "cc/gvcupload2.php";
+      $q.loading.show();
+      let url = serverData.value + "cc/backupload1.php";
       const response = await fetch(url, {
         method: "POST",
         body: formData,
       });
-      const result = await response.json();
 
+      const result = await response.json();
+      $q.loading.hide();
       if (result.existingCountries.length > 0) {
         existingCountries1.value = result.existingCountries;
         confirmDialog1.value = true;
@@ -252,45 +166,9 @@ const uploadFile1 = async () => {
   }
 };
 
-const uploadFile1a = async () => {
-  if (file2.value) {
-    const formData = new FormData();
-
-    formData.append("file", file2.value);
-
-    try {
-      let url = serverData.value + "cc/gvcupload2a.php";
-      const response = await fetch(url, {
-        method: "POST",
-        body: formData,
-      });
-      const result = await response.json();
-
-      if (result.existingCountries.length > 0) {
-        existingCountries2.value = result.existingCountries;
-        confirmDialog2.value = true;
-      } else {
-        Notify.create({
-          message: "Data uploaded successfully.",
-          color: "positive",
-          position: "top",
-          icon: "fa-solid fa-circle-check",
-        });
-        file2.value = null;
-      }
-    } catch (error) {}
-  } else {
-    Notify.create({
-      message: "Please select CSV file before uploading",
-      color: "negative",
-      icon: "fa-solid fa-circle-exclamation",
-      position: "top",
-    });
-  }
-};
-
 const confirmDeletion1 = async () => {
-  let url = serverData.value + "cc/gvcdelete2.php";
+  $q.loading.show();
+  let url = serverData.value + "cc/backdelete1.php";
   let dataSend = {
     exp_country: existingCountries1.value,
   };
@@ -299,26 +177,14 @@ const confirmDeletion1 = async () => {
   confirmDialog1.value = false;
 };
 
-const confirmDeletion1a = async () => {
-  let url = serverData.value + "cc/gvcdelete2a.php";
-  let dataSend = {
-    exp_country: existingCountries2.value,
-  };
-  let res = await axios.post(url, JSON.stringify(dataSend));
-  uploadFile1a();
-  confirmDialog2.value = false;
-};
-
 const clearData1 = () => {
   confirmClearData1.value = true;
 };
 
-const clearData1a = () => {
-  confirmClearData2.value = true;
-};
-
 const confirmClear1 = async () => {
-  let res2 = await axios.get(serverData.value + "cc/gvcclear2.php");
+  $q.loading.show();
+  let res2 = await axios.get(serverData.value + "cc/backclear1.php");
+  $q.loading.hide();
   if (res2.data == "clear data successfully") {
     Notify.create({
       message: "Clear all data successfully.",
@@ -330,33 +196,10 @@ const confirmClear1 = async () => {
   confirmClearData1.value = false;
 };
 
-const confirmClear1a = async () => {
-  let res2 = await axios.get(serverData.value + "cc/gvcclear2a.php");
-  if (res2.data == "clear data successfully") {
-    Notify.create({
-      message: "Clear all data successfully.",
-      color: "positive",
-      position: "top",
-      icon: "fa-solid fa-circle-check",
-    });
-  }
-  confirmClearData2.value = false;
-};
-
 const makeIndex1 = async () => {
-  let res2 = await axios.get(serverData.value + "cc/gvcmakeindex2.php");
-  if (res2.data == "finish") {
-    Notify.create({
-      message: "Optimize database successfully.",
-      color: "positive",
-      position: "top",
-      icon: "fa-solid fa-circle-check",
-    });
-  }
-};
-
-const makeIndex1a = async () => {
-  let res2 = await axios.get(serverData.value + "cc/gvcmakeindex2a.php");
+  $q.loading.show();
+  let res2 = await axios.get(serverData.value + "cc/backmakeindex1.php");
+  $q.loading.hide();
   if (res2.data == "finish") {
     Notify.create({
       message: "Optimize database successfully.",

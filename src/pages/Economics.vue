@@ -15,7 +15,8 @@
         <div style="width: 5%">No.</div>
         <div class="col q-px-lg">Economic</div>
         <div style="width: 15%" class="text-center">ISO</div>
-        <div style="width: 30%" class="text-center">region</div>
+        <div style="width: 20%" class="text-center">Region</div>
+        <div style="width: 20%" class="text-center">Area</div>
         <div style="width: 10%" class="text-center">Edit</div>
         <div style="width: 10%" class="text-center">Delete</div>
       </div>
@@ -28,7 +29,8 @@
         <div style="width: 5%">{{ index + 1 }}</div>
         <div class="col q-px-lg">{{ item.economic }}</div>
         <div style="width: 15%" class="text-center">{{ item.iso }}</div>
-        <div style="width: 30%" class="text-center">{{ item.region }}</div>
+        <div style="width: 20%" class="text-center">{{ item.region }}</div>
+        <div style="width: 20%" class="text-center">{{ item.area }}</div>
         <div style="width: 10%" class="text-center">
           <u class="cursor-pointer" @click="editEco(item)">Edit</u>
         </div>
@@ -71,6 +73,19 @@
             <q-select
               v-model="input.region"
               :options="regionList"
+              outlined
+              dense
+              style="width: 300px"
+            />
+          </div>
+        </div>
+        <div class="row justify-center q-pt-md">
+          <div class="q-pt-sm" style="width: 40px">Area</div>
+          <div class="q-px-md"></div>
+          <div>
+            <q-select
+              v-model="input.area"
+              :options="areaList"
               outlined
               dense
               style="width: 300px"
@@ -125,6 +140,19 @@
             <q-select
               v-model="edit.region"
               :options="regionList"
+              outlined
+              dense
+              style="width: 300px"
+            />
+          </div>
+        </div>
+        <div class="row justify-center q-pt-md">
+          <div class="q-pt-sm" style="width: 40px">Area</div>
+          <div class="q-px-md"></div>
+          <div>
+            <q-select
+              v-model="edit.area"
+              :options="areaList"
               outlined
               dense
               style="width: 300px"
@@ -188,9 +216,11 @@ const input = ref({
   economic: "",
   iso: "",
   region: "",
+  area: "",
 });
 const regionList = ref([
   "-",
+  "Africa and Middle East Asia",
   "East and North-East Asia",
   "Eastern Europe",
   "Latin America and the Caribbean",
@@ -203,6 +233,13 @@ const regionList = ref([
   "Southern Europe",
   "Western Europe",
 ]);
+const areaList = ref([
+  "Asia-Pacific",
+  "Europe",
+  "North America",
+  "Latin America",
+  "Rest of the world",
+]);
 input.value.region = regionList.value[0];
 
 //****Add new economic
@@ -212,6 +249,7 @@ const AddNewEcoBtn = () => {
   input.value.economic = "";
   input.value.iso = "";
   input.value.region = regionList.value[0];
+  input.value.area = areaList.value[0];
 };
 
 const cancelBtn = () => {
@@ -219,6 +257,7 @@ const cancelBtn = () => {
   input.value.economic = "";
   input.value.iso = "";
   input.value.region = regionList.value[0];
+  input.value.area = areaList.value[0];
 };
 
 const addNewEco = async () => {
@@ -236,6 +275,7 @@ const addNewEco = async () => {
     economic: input.value.economic,
     iso: input.value.iso,
     region: input.value.region,
+    area: input.value.area,
   };
   const res = await axios.post(url, JSON.stringify(dataSent));
   if (res.data == "This economic is exist.") {
@@ -302,12 +342,14 @@ const edit = ref({
   economic: "",
   iso: "",
   region: "",
+  area: "",
 });
 const editEco = (item) => {
   editEcoID.value = item.id;
   edit.value.economic = item.economic;
   edit.value.iso = item.iso;
   edit.value.region = item.region;
+  edit.value.area = item.area;
   isEditEcoDia.value = true;
 };
 
@@ -322,6 +364,7 @@ const EditEcoBtn = async () => {
     iso: edit.value.iso,
     region: edit.value.region,
     id: editEcoID.value,
+    area: edit.value.area,
   };
   const res = await axios.post(url, JSON.stringify(dataSend));
   Notify.create({
@@ -350,7 +393,7 @@ const EditEcoBtn = async () => {
 .addNewEcoDiv {
   width: 100%;
   max-width: 450px;
-  height: 285px;
+  height: 345px;
 }
 .btnCancel {
   width: 120px;
