@@ -14,7 +14,7 @@
             <img src="images/logo.svg" alt="" />
           </div>
           <div style="font-size: 24px" class="text-center">
-            RIVA 3 Control Center
+            RIVA Control Center
           </div>
           <div class="row justify-center">
             <div class="row q-pt-lg" style="font-size: 16px">

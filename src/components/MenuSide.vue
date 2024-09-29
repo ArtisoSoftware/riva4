@@ -24,7 +24,13 @@
             <q-item-section> <b>RI</b> </q-item-section>
           </template>
           <div class="q-px-lg subTopic">General Data</div>
-
+          <div
+            class="q-px-lg q-py-sm cursor-pointer"
+            :class="{ selectedMenu: menu == 10 }"
+            @click="goToRIYear()"
+          >
+            Year
+          </div>
           <div
             class="q-px-lg q-py-sm cursor-pointer"
             :class="{ selectedMenu: menu == 11 }"
@@ -111,13 +117,6 @@
           >
             Forward linkages
           </div>
-          <div
-            class="q-px-lg q-py-sm cursor-pointer"
-            @click="goTocountrybriefs()"
-            :class="{ selectedMenu: menu == 210 }"
-          >
-            Country briefs
-          </div>
         </q-expansion-item>
         <q-separator />
         <q-expansion-item v-model="userExpanded" dark>
@@ -128,7 +127,6 @@
 
             <q-item-section> <b>User</b> </q-item-section>
           </template>
-          <div class="q-px-lg q-py-sm cursor-pointer">Member</div>
           <div
             class="q-px-lg q-py-sm cursor-pointer"
             :class="{ selectedMenu: menu == 32 }"
@@ -209,6 +207,9 @@ watch(riExpanded, (newVal) => {
   }
 });
 
+const goToRIYear = ()=>{
+  router.push("/riyear")
+}
 const goToYear = () => {
   router.push("/year");
 };
@@ -235,9 +236,6 @@ const goTobackwardlinkages = () => {
 };
 const goToforwardlinkages = () => {
   router.push("/forwardlinkages");
-};
-const goTocountrybriefs = () => {
-  router.push("/countrybriefs");
 };
 
 const goToStaff = () => {

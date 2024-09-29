@@ -58,6 +58,10 @@ const routes = [
     path: "/rieco",
     component: () => import("pages/RIEco.vue"),
   },
+  {
+    path: "/riyear",
+    component: () => import("pages/Riyear.vue"),
+  },
 
   // Always leave this as last one,
   // but you can also remove it

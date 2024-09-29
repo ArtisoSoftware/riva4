@@ -13,7 +13,7 @@
       >
         <div>
           <div class="text-center welcomeText q-pt-xl">Welcome to</div>
-          <div class="text-center subTitleText">RIVA 3.0 Control Center</div>
+          <div class="text-center subTitleText">RIVA Control Center</div>
         </div>
       </div>
       <div class="welcomePic row justify-center">
