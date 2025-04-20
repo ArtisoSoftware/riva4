@@ -1,0 +1,89 @@
+Date : 2025-01-09 16:12:54
+Directory : c:\Work\2024\riva3_5\riva_cc
+Total : 45 files,  8633 codes, 184 comments, 295 blanks, all 9112 lines
+
+Languages
++--------------------+------------+------------+------------+------------+------------+
+| language           | files      | code       | comment    | blank      | total      |
++--------------------+------------+------------+------------+------------+------------+
+| JSON               |          3 |      4,885 |          0 |         10 |      4,895 |
+| Vue                |         19 |      3,368 |         43 |        191 |      3,602 |
+| JavaScript         |          7 |        201 |        129 |         67 |        397 |
+| XML                |         11 |         84 |          0 |         10 |         94 |
+| JSON with Comments |          1 |         39 |          0 |          0 |         39 |
+| Markdown           |          1 |         23 |          0 |          6 |         29 |
+| HTML               |          1 |         18 |          1 |          3 |         22 |
+| SCSS               |          2 |         15 |         11 |          8 |         34 |
++--------------------+------------+------------+------------+------------+------------+
+
+Directories
++------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                             | files      | code       | comment    | blank      | total      |
++------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                |         45 |      8,633 |        184 |        295 |      9,112 |
+| . (Files)                                                        |          7 |      4,781 |        106 |         53 |      4,940 |
+| public                                                           |         11 |        327 |          0 |         18 |        345 |
+| public (Files)                                                   |          1 |        258 |          0 |          8 |        266 |
+| public\images                                                    |         10 |         69 |          0 |         10 |         79 |
+| src                                                              |         27 |      3,525 |         78 |        224 |      3,827 |
+| src (Files)                                                      |          1 |          8 |          0 |          2 |         10 |
+| src\assets                                                       |          1 |         15 |          0 |          0 |         15 |
+| src\boot                                                         |          1 |          8 |         11 |          6 |         25 |
+| src\components                                                   |          1 |        287 |          1 |         19 |        307 |
+| src\css                                                          |          2 |         15 |         11 |          8 |         34 |
+| src\layouts                                                      |          1 |         96 |          0 |         11 |        107 |
+| src\pages                                                        |         18 |      3,015 |         42 |        166 |      3,223 |
+| src\router                                                       |          2 |         81 |         13 |         12 |        106 |
++------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++------------------------------------------------------------------+--------------------+------------+------------+------------+------------+
+| filename                                                         | language           | code       | comment    | blank      | total      |
++------------------------------------------------------------------+--------------------+------------+------------+------------+------------+
+| c:\Work\2024\riva3_5\riva_cc\README.md                           | Markdown           |         23 |          0 |          6 |         29 |
+| c:\Work\2024\riva3_5\riva_cc\index.html                          | HTML               |         18 |          1 |          3 |         22 |
+| c:\Work\2024\riva3_5\riva_cc\jsconfig.json                       | JSON with Comments |         39 |          0 |          0 |         39 |
+| c:\Work\2024\riva3_5\riva_cc\package-lock.json                   | JSON               |      4,597 |          0 |          1 |      4,598 |
+| c:\Work\2024\riva3_5\riva_cc\package.json                        | JSON               |         30 |          0 |          1 |         31 |
+| c:\Work\2024\riva3_5\riva_cc\postcss.config.cjs                  | JavaScript         |         16 |          9 |          3 |         28 |
+| c:\Work\2024\riva3_5\riva_cc\public\Integration overview.json    | JSON               |        258 |          0 |          8 |        266 |
+| c:\Work\2024\riva3_5\riva_cc\public\images\arrowleft.svg         | XML                |          4 |          0 |          1 |          5 |
+| c:\Work\2024\riva3_5\riva_cc\public\images\editProfile.svg       | XML                |          6 |          0 |          1 |          7 |
+| c:\Work\2024\riva3_5\riva_cc\public\images\exit.svg              | XML                |          3 |          0 |          1 |          4 |
+| c:\Work\2024\riva3_5\riva_cc\public\images\genmenu.svg           | XML                |          7 |          0 |          1 |          8 |
+| c:\Work\2024\riva3_5\riva_cc\public\images\logo.svg              | XML                |          9 |          0 |          1 |         10 |
+| c:\Work\2024\riva3_5\riva_cc\public\images\profile.svg           | XML                |          8 |          0 |          1 |          9 |
+| c:\Work\2024\riva3_5\riva_cc\public\images\rimenu.svg            | XML                |         12 |          0 |          1 |         13 |
+| c:\Work\2024\riva3_5\riva_cc\public\images\rivalogo.svg          | XML                |          9 |          0 |          1 |         10 |
+| c:\Work\2024\riva3_5\riva_cc\public\images\usermenu.svg          | XML                |          3 |          0 |          1 |          4 |
+| c:\Work\2024\riva3_5\riva_cc\public\images\vamenu.svg            | XML                |          8 |          0 |          1 |          9 |
+| c:\Work\2024\riva3_5\riva_cc\quasar.config.js                    | JavaScript         |         58 |         96 |         39 |        193 |
+| c:\Work\2024\riva3_5\riva_cc\src\App.vue                         | Vue                |          8 |          0 |          2 |         10 |
+| c:\Work\2024\riva3_5\riva_cc\src\assets\quasar-logo-vertical.svg | XML                |         15 |          0 |          0 |         15 |
+| c:\Work\2024\riva3_5\riva_cc\src\boot\axios.js                   | JavaScript         |          8 |         11 |          6 |         25 |
+| c:\Work\2024\riva3_5\riva_cc\src\components\MenuSide.vue         | Vue                |        287 |          1 |         19 |        307 |
+| c:\Work\2024\riva3_5\riva_cc\src\css\app.scss                    | SCSS               |          6 |          1 |          1 |          8 |
+| c:\Work\2024\riva3_5\riva_cc\src\css\quasar.variables.scss       | SCSS               |          9 |         10 |          7 |         26 |
+| c:\Work\2024\riva3_5\riva_cc\src\layouts\MainLayout.vue          | Vue                |         96 |          0 |         11 |        107 |
+| c:\Work\2024\riva3_5\riva_cc\src\pages\BackwardLinkages.vue      | Vue                |        113 |          0 |          3 |        116 |
+| c:\Work\2024\riva3_5\riva_cc\src\pages\CountryBriefs.vue         | Vue                |        276 |          5 |         11 |        292 |
+| c:\Work\2024\riva3_5\riva_cc\src\pages\Economics.vue             | Vue                |        398 |          7 |         16 |        421 |
+| c:\Work\2024\riva3_5\riva_cc\src\pages\EconomyGroup.vue          | Vue                |        333 |          7 |         23 |        363 |
+| c:\Work\2024\riva3_5\riva_cc\src\pages\ErrorNotFound.vue         | Vue                |         26 |          0 |          4 |         30 |
+| c:\Work\2024\riva3_5\riva_cc\src\pages\ExportingSection.vue      | Vue                |        377 |          7 |         25 |        409 |
+| c:\Work\2024\riva3_5\riva_cc\src\pages\ForwardLinkages.vue       | Vue                |        164 |          2 |          8 |        174 |
+| c:\Work\2024\riva3_5\riva_cc\src\pages\GvcRelationship.vue       | Vue                |        103 |          0 |          4 |        107 |
+| c:\Work\2024\riva3_5\riva_cc\src\pages\Login.vue                 | Vue                |        117 |          0 |          5 |        122 |
+| c:\Work\2024\riva3_5\riva_cc\src\pages\ParticipationInGVCs.vue   | Vue                |         37 |          0 |          3 |         40 |
+| c:\Work\2024\riva3_5\riva_cc\src\pages\RIEco.vue                 | Vue                |        226 |          0 |          9 |        235 |
+| c:\Work\2024\riva3_5\riva_cc\src\pages\Riyear.vue                | Vue                |        138 |          0 |          9 |        147 |
+| c:\Work\2024\riva3_5\riva_cc\src\pages\Staff.vue                 | Vue                |        303 |          8 |         19 |        330 |
+| c:\Work\2024\riva3_5\riva_cc\src\pages\StructureOfValueAdded.vue | Vue                |         84 |          0 |          4 |         88 |
+| c:\Work\2024\riva3_5\riva_cc\src\pages\Welcome.vue               | Vue                |         51 |          0 |          3 |         54 |
+| c:\Work\2024\riva3_5\riva_cc\src\pages\Year.vue                  | Vue                |        231 |          6 |         13 |        250 |
+| c:\Work\2024\riva3_5\riva_cc\src\pages\auth.js                   | JavaScript         |         31 |          0 |          6 |         37 |
+| c:\Work\2024\riva3_5\riva_cc\src\pages\server.js                 | JavaScript         |          7 |          0 |          1 |          8 |
+| c:\Work\2024\riva3_5\riva_cc\src\router\index.js                 | JavaScript         |         14 |         11 |          6 |         31 |
+| c:\Work\2024\riva3_5\riva_cc\src\router\routes.js                | JavaScript         |         67 |          2 |          6 |         75 |
+| Total                                                            |                    |      8,633 |        184 |        295 |      9,112 |
++------------------------------------------------------------------+--------------------+------------+------------+------------+------------+

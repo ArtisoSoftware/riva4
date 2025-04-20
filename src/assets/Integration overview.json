@@ -1,0 +1,265 @@
+[
+  {
+    "country": "Economy groups",
+    "disable": true
+  },
+  {
+    "iso": "escap",
+    "country": "Asia-Pacific"
+  },
+  {
+    "iso": "ene_asia",
+    "country": "East and Nort-East Asia (ENEA)"
+  },
+  {
+    "iso": "nc_asia",
+    "country": "North and Central Asia (NCA)"
+  },
+  {
+    "iso": "pacific",
+    "country": "Pacific (PAC)"
+  },
+  {
+    "iso": "ssw_asia",
+    "country": "South and South-Weast Asia (SSWA)"
+  },
+  {
+    "iso": "se_asia",
+    "country": "South-East Asia (SEA)"
+  },
+
+  {
+    "iso": "apta",
+    "country": "APTA"
+  },
+  {
+    "iso": "asean",
+    "country": "ASEAN"
+  },
+  {
+    "iso": "bimstec",
+    "country": "BIMSTEC"
+  },
+
+  {
+    "iso": "rcep",
+    "country": "RCEP"
+  },
+  {
+    "iso": "saarc",
+    "country": "SAARC"
+  },
+  {
+    "iso": "speca",
+    "country": "SPECA"
+  },
+  {
+    "iso": "ap_high_income",
+    "country": "Asia-Pacific High-income economies"
+  },
+  {
+    "iso": "ap_upper_middle_income",
+    "country": "Asia-Pacific Upper-middle-income economies"
+  },
+  {
+    "iso": "ap_lower_middle_income",
+    "country": "Asia-Pacific Lower-middle-income economies"
+  },
+  {
+    "iso": "ap_low_income",
+    "country": "Asia-Pacific Low-income economies"
+  },
+  {
+    "iso": "ap_ldc",
+    "country": "Asia-Pacific Least developed countries"
+  },
+  {
+    "iso": "ap_lldc",
+    "country": "Asia-Pacific Landlocked least developed countries"
+  },
+  {
+    "iso": "ap_landlocked_dev",
+    "country": "Asia-Pacific Landlocked developing countries"
+  },
+  {
+    "iso": "ap_pacific_developing",
+    "country": "Asia-Pacific Pacific developing economies"
+  },
+  {
+    "iso": "ap_sids",
+    "country": "Asia-Pacific Small Islands Developing States (SIDS)"
+  },
+  {
+    "country": "Individual economies",
+    "disable": true
+  },
+  {
+    "iso": "AFG",
+    "country": "Afghanistan"
+  },
+  {
+    "iso": "ARM",
+    "country": "Armenia"
+  },
+  {
+    "iso": "AUS",
+    "country": "Australia"
+  },
+
+  {
+    "iso": "AZE",
+    "country": "Azerbaijan"
+  },
+  {
+    "iso": "BGD",
+    "country": "Bangladesh"
+  },
+  {
+    "iso": "BTN",
+    "country": "Bhutan"
+  },
+  {
+    "iso": "BRN",
+    "country": "Brunei Darussalam"
+  },
+  {
+    "iso": "KHM",
+    "country": "Cambodia"
+  },
+
+  {
+    "iso": "CHN",
+    "country": "China"
+  },
+  {
+    "iso": "FJI",
+    "country": "Fiji"
+  },
+  {
+    "iso": "GEO",
+    "country": "Georgia"
+  },
+  {
+    "iso": "HKG",
+    "country": "Hong Kong, China"
+  },
+  {
+    "iso": "IND",
+    "country": "India"
+  },
+  {
+    "iso": "IDN",
+    "country": "Indonesia"
+  },
+  {
+    "iso": "IRN",
+    "country": "Iran (Islamic Rep. of)"
+  },
+  {
+    "iso": "JPN",
+    "country": "Japan"
+  },
+  {
+    "iso": "KAZ",
+    "country": "Kazakhstan"
+  },
+  {
+    "iso": "KGZ",
+    "country": "Kyrgyzstan"
+  },
+  {
+    "iso": "LAO",
+    "country": "Lao P.D.R."
+  },
+  {
+    "iso": "MAC",
+    "country": "Macao, China"
+  },
+  {
+    "iso": "MYS",
+    "country": "Malaysia"
+  },
+  {
+    "iso": "MDV",
+    "country": "Maldives"
+  },
+  {
+    "iso": "MNG",
+    "country": "Mongolia"
+  },
+  {
+    "iso": "MMR",
+    "country": "Myanmar"
+  },
+  {
+    "iso": "NPL",
+    "country": "Nepal"
+  },
+  {
+    "iso": "NZL",
+    "country": "New Zealand"
+  },
+  {
+    "iso": "PAK",
+    "country": "Pakistan"
+  },
+  {
+    "iso": "PNG",
+    "country": "Papua New Guinea"
+  },
+  {
+    "iso": "PHL",
+    "country": "Philippines"
+  },
+  {
+    "iso": "KOR",
+    "country": "Republic of Korea"
+  },
+  {
+    "iso": "RUS",
+    "country": "Russian Federation"
+  },
+  {
+    "iso": "WSM",
+    "country": "Samoa"
+  },
+  {
+    "iso": "SGP",
+    "country": "Singapore"
+  },
+  {
+    "iso": "SLB",
+    "country": "Solomon Islands"
+  },
+  {
+    "iso": "LKA",
+    "country": "Sri Lanka"
+  },
+  {
+    "iso": "TJK",
+    "country": "Tajikistan"
+  },
+
+  {
+    "iso": "THA",
+    "country": "Thailand"
+  },
+
+  {
+    "iso": "TUR",
+    "country": "Türkiye"
+  },
+  {
+    "iso": "TKM",
+    "country": "Turkmenistan"
+  },
+  {
+    "iso": "UZB",
+    "country": "Uzbekistan"
+  },
+
+  {
+    "iso": "VNM",
+    "country": "Viet Nam"
+  }
+]

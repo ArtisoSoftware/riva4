@@ -1,0 +1,47 @@
+"filename", "language", "HTML", "JSON with Comments", "Markdown", "JavaScript", "JSON", "XML", "Vue", "SCSS", "comment", "blank", "total"
+"c:\Work\2024\riva3_5\riva_cc\README.md", "Markdown", 0, 0, 23, 0, 0, 0, 0, 0, 0, 6, 29
+"c:\Work\2024\riva3_5\riva_cc\index.html", "HTML", 18, 0, 0, 0, 0, 0, 0, 0, 1, 3, 22
+"c:\Work\2024\riva3_5\riva_cc\jsconfig.json", "JSON with Comments", 0, 39, 0, 0, 0, 0, 0, 0, 0, 0, 39
+"c:\Work\2024\riva3_5\riva_cc\package-lock.json", "JSON", 0, 0, 0, 0, 4597, 0, 0, 0, 0, 1, 4598
+"c:\Work\2024\riva3_5\riva_cc\package.json", "JSON", 0, 0, 0, 0, 30, 0, 0, 0, 0, 1, 31
+"c:\Work\2024\riva3_5\riva_cc\postcss.config.cjs", "JavaScript", 0, 0, 0, 16, 0, 0, 0, 0, 9, 3, 28
+"c:\Work\2024\riva3_5\riva_cc\public\Integration overview.json", "JSON", 0, 0, 0, 0, 258, 0, 0, 0, 0, 8, 266
+"c:\Work\2024\riva3_5\riva_cc\public\images\arrowleft.svg", "XML", 0, 0, 0, 0, 0, 4, 0, 0, 0, 1, 5
+"c:\Work\2024\riva3_5\riva_cc\public\images\editProfile.svg", "XML", 0, 0, 0, 0, 0, 6, 0, 0, 0, 1, 7
+"c:\Work\2024\riva3_5\riva_cc\public\images\exit.svg", "XML", 0, 0, 0, 0, 0, 3, 0, 0, 0, 1, 4
+"c:\Work\2024\riva3_5\riva_cc\public\images\genmenu.svg", "XML", 0, 0, 0, 0, 0, 7, 0, 0, 0, 1, 8
+"c:\Work\2024\riva3_5\riva_cc\public\images\logo.svg", "XML", 0, 0, 0, 0, 0, 9, 0, 0, 0, 1, 10
+"c:\Work\2024\riva3_5\riva_cc\public\images\profile.svg", "XML", 0, 0, 0, 0, 0, 8, 0, 0, 0, 1, 9
+"c:\Work\2024\riva3_5\riva_cc\public\images\rimenu.svg", "XML", 0, 0, 0, 0, 0, 12, 0, 0, 0, 1, 13
+"c:\Work\2024\riva3_5\riva_cc\public\images\rivalogo.svg", "XML", 0, 0, 0, 0, 0, 9, 0, 0, 0, 1, 10
+"c:\Work\2024\riva3_5\riva_cc\public\images\usermenu.svg", "XML", 0, 0, 0, 0, 0, 3, 0, 0, 0, 1, 4
+"c:\Work\2024\riva3_5\riva_cc\public\images\vamenu.svg", "XML", 0, 0, 0, 0, 0, 8, 0, 0, 0, 1, 9
+"c:\Work\2024\riva3_5\riva_cc\quasar.config.js", "JavaScript", 0, 0, 0, 58, 0, 0, 0, 0, 96, 39, 193
+"c:\Work\2024\riva3_5\riva_cc\src\App.vue", "Vue", 0, 0, 0, 0, 0, 0, 8, 0, 0, 2, 10
+"c:\Work\2024\riva3_5\riva_cc\src\assets\quasar-logo-vertical.svg", "XML", 0, 0, 0, 0, 0, 15, 0, 0, 0, 0, 15
+"c:\Work\2024\riva3_5\riva_cc\src\boot\axios.js", "JavaScript", 0, 0, 0, 8, 0, 0, 0, 0, 11, 6, 25
+"c:\Work\2024\riva3_5\riva_cc\src\components\MenuSide.vue", "Vue", 0, 0, 0, 0, 0, 0, 287, 0, 1, 19, 307
+"c:\Work\2024\riva3_5\riva_cc\src\css\app.scss", "SCSS", 0, 0, 0, 0, 0, 0, 0, 6, 1, 1, 8
+"c:\Work\2024\riva3_5\riva_cc\src\css\quasar.variables.scss", "SCSS", 0, 0, 0, 0, 0, 0, 0, 9, 10, 7, 26
+"c:\Work\2024\riva3_5\riva_cc\src\layouts\MainLayout.vue", "Vue", 0, 0, 0, 0, 0, 0, 96, 0, 0, 11, 107
+"c:\Work\2024\riva3_5\riva_cc\src\pages\BackwardLinkages.vue", "Vue", 0, 0, 0, 0, 0, 0, 113, 0, 0, 3, 116
+"c:\Work\2024\riva3_5\riva_cc\src\pages\CountryBriefs.vue", "Vue", 0, 0, 0, 0, 0, 0, 276, 0, 5, 11, 292
+"c:\Work\2024\riva3_5\riva_cc\src\pages\Economics.vue", "Vue", 0, 0, 0, 0, 0, 0, 398, 0, 7, 16, 421
+"c:\Work\2024\riva3_5\riva_cc\src\pages\EconomyGroup.vue", "Vue", 0, 0, 0, 0, 0, 0, 333, 0, 7, 23, 363
+"c:\Work\2024\riva3_5\riva_cc\src\pages\ErrorNotFound.vue", "Vue", 0, 0, 0, 0, 0, 0, 26, 0, 0, 4, 30
+"c:\Work\2024\riva3_5\riva_cc\src\pages\ExportingSection.vue", "Vue", 0, 0, 0, 0, 0, 0, 377, 0, 7, 25, 409
+"c:\Work\2024\riva3_5\riva_cc\src\pages\ForwardLinkages.vue", "Vue", 0, 0, 0, 0, 0, 0, 164, 0, 2, 8, 174
+"c:\Work\2024\riva3_5\riva_cc\src\pages\GvcRelationship.vue", "Vue", 0, 0, 0, 0, 0, 0, 103, 0, 0, 4, 107
+"c:\Work\2024\riva3_5\riva_cc\src\pages\Login.vue", "Vue", 0, 0, 0, 0, 0, 0, 117, 0, 0, 5, 122
+"c:\Work\2024\riva3_5\riva_cc\src\pages\ParticipationInGVCs.vue", "Vue", 0, 0, 0, 0, 0, 0, 37, 0, 0, 3, 40
+"c:\Work\2024\riva3_5\riva_cc\src\pages\RIEco.vue", "Vue", 0, 0, 0, 0, 0, 0, 226, 0, 0, 9, 235
+"c:\Work\2024\riva3_5\riva_cc\src\pages\Riyear.vue", "Vue", 0, 0, 0, 0, 0, 0, 138, 0, 0, 9, 147
+"c:\Work\2024\riva3_5\riva_cc\src\pages\Staff.vue", "Vue", 0, 0, 0, 0, 0, 0, 303, 0, 8, 19, 330
+"c:\Work\2024\riva3_5\riva_cc\src\pages\StructureOfValueAdded.vue", "Vue", 0, 0, 0, 0, 0, 0, 84, 0, 0, 4, 88
+"c:\Work\2024\riva3_5\riva_cc\src\pages\Welcome.vue", "Vue", 0, 0, 0, 0, 0, 0, 51, 0, 0, 3, 54
+"c:\Work\2024\riva3_5\riva_cc\src\pages\Year.vue", "Vue", 0, 0, 0, 0, 0, 0, 231, 0, 6, 13, 250
+"c:\Work\2024\riva3_5\riva_cc\src\pages\auth.js", "JavaScript", 0, 0, 0, 31, 0, 0, 0, 0, 0, 6, 37
+"c:\Work\2024\riva3_5\riva_cc\src\pages\server.js", "JavaScript", 0, 0, 0, 7, 0, 0, 0, 0, 0, 1, 8
+"c:\Work\2024\riva3_5\riva_cc\src\router\index.js", "JavaScript", 0, 0, 0, 14, 0, 0, 0, 0, 11, 6, 31
+"c:\Work\2024\riva3_5\riva_cc\src\router\routes.js", "JavaScript", 0, 0, 0, 67, 0, 0, 0, 0, 2, 6, 75
+"Total", "-", 18, 39, 23, 201, 4885, 84, 3368, 15, 184, 295, 9112

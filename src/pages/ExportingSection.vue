@@ -4,7 +4,7 @@
     <div class="col q-pa-md" style="height: 100dvh; overflow-y: auto">
       <div class="text-right">
         <q-btn
-          label="Add section"
+          label="Add sector"
           class="btn"
           icon="fa-solid fa-plus"
           no-caps
@@ -16,7 +16,7 @@
         <div class="col q-px-lg">Sector name</div>
 
         <div style="width: 15%" class="text-center">Short name</div>
-        <div style="width: 15%" class="text-center">Section group</div>
+        <div style="width: 15%" class="text-center">Sector group</div>
         <div style="width: 70px" class="text-center">Edit</div>
         <div style="width: 70px" class="text-center">Delete</div>
       </div>
@@ -48,7 +48,7 @@
     <!-- Dialog for add new category -->
     <q-dialog v-model="isAddCategory" persistent>
       <q-card class="newCategoryDia">
-        <div class="headBar q-px-md">Add new section</div>
+        <div class="headBar q-px-md">Add new sector</div>
         <div class="justify-center row q-pt-md">
           <div class="q-pt-sm" style="width: 95px">Order ID</div>
           <div style="width: 25px"></div>
@@ -73,7 +73,7 @@
         </div>
 
         <div class="justify-center row q-pt-md">
-          <div class="q-pt-sm" style="width: 95px">Section group</div>
+          <div class="q-pt-sm" style="width: 95px">Sector group</div>
           <div style="width: 25px"></div>
           <div>
             <q-select
@@ -112,7 +112,7 @@
     <!-- Dialog for edit category -->
     <q-dialog v-model="isEditCategory" persistent>
       <q-card class="newCategoryDia">
-        <div class="headBar q-px-md">Edit section</div>
+        <div class="headBar q-px-md">Edit sector</div>
         <div class="justify-center row q-pt-md">
           <div class="q-pt-sm" style="width: 95px">OrderID</div>
           <div style="width: 25px"></div>
@@ -152,7 +152,7 @@
         </div>
 
         <div class="justify-center row q-pt-md">
-          <div class="q-pt-sm" style="width: 95px">Section group</div>
+          <div class="q-pt-sm" style="width: 95px">Sector group</div>
           <div style="width: 25px"></div>
           <div>
             <q-select

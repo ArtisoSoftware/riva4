@@ -56,7 +56,7 @@
             />
           </div>
           <div class="q-pa-md" style="position: absolute; bottom: 0; right: 0">
-            Version 3.00
+            Version 3.01
           </div>
         </div>
       </div>

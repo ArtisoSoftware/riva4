@@ -5,7 +5,6 @@
       <div style="width: 1140px; margin: auto">
         <div class="row justify-between">
           <div class="title">Select by exporting sector</div>
-          <div class="cursor-pointer"><u>How do I upload data?</u></div>
         </div>
         <div class="title">Section 1</div>
         <div class="row">
@@ -48,7 +47,7 @@
           <div style="font-size: 16px" class="q-pt-xl">
             <div class="row q-pt-xl">
               Use the data from section 1 of the backward linkages<br />
-              select byexporting sector.
+              select by exporting sector.
             </div>
           </div>
         </div>

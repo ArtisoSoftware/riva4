@@ -61,7 +61,7 @@
             @click="goToEco()"
             :class="{ selectedMenu: menu == 22 }"
           >
-            Individual Economics
+            Individual economics
           </div>
           <div
             class="q-px-lg q-py-sm cursor-pointer"
@@ -75,11 +75,18 @@
             @click="goToExporting()"
             :class="{ selectedMenu: menu == 24 }"
           >
-            Exporting section
+            Exporting sector
           </div>
 
-          <div class="q-px-lg subTopic">Page Data</div>
           <div
+            class="q-px-lg q-py-sm cursor-pointer"
+            @click="goToDataUploadGuide()"
+            :class="{ selectedMenu: menu == 25 }"
+          >
+            Data Upload Guide
+          </div>
+
+          <!-- <div
             class="q-px-lg q-py-sm cursor-pointer"
             @click="goToGvcRelationship()"
             :class="{ selectedMenu: menu == 25 }"
@@ -116,7 +123,7 @@
             :class="{ selectedMenu: menu == 29 }"
           >
             Forward linkages
-          </div>
+          </div> -->
         </q-expansion-item>
         <q-separator />
         <q-expansion-item v-model="userExpanded" dark>
@@ -136,6 +143,15 @@
           </div>
         </q-expansion-item>
       </q-list>
+      <div>
+        <div
+          class="text-center cursor-pointer"
+          style="margin-left: 28px; position: absolute; bottom: 70px"
+          @click="downloadManual()"
+        >
+          <u>How to use RIVA Control Center?</u>
+        </div>
+      </div>
       <div>
         <div
           style="
@@ -207,9 +223,9 @@ watch(riExpanded, (newVal) => {
   }
 });
 
-const goToRIYear = ()=>{
-  router.push("/riyear")
-}
+const goToRIYear = () => {
+  router.push("/riyear");
+};
 const goToYear = () => {
   router.push("/year");
 };
@@ -237,6 +253,9 @@ const goTobackwardlinkages = () => {
 const goToforwardlinkages = () => {
   router.push("/forwardlinkages");
 };
+const goToDataUploadGuide = () => {
+  router.push("/dataUploadGuide");
+};
 
 const goToStaff = () => {
   router.push("/staff");
@@ -251,6 +270,14 @@ const logOutBtn = () => {
   router.push("/");
 };
 
+const downloadManual = () => {
+  const link = document.createElement("a");
+  link.href = "/manual.pdf";
+  link.setAttribute("download", "manual.pdf");
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+};
 const usernameDisplay = ref("");
 
 onMounted(() => {

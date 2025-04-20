@@ -28,8 +28,8 @@
         <div class="row justify-center">
           <div class="text-h6 text-center">Year Setting for RI</div>
         </div>
-        <div class="q-pt-md row justify-center" style="">
-          <div class="q-pt-sm q-pr-md">Start year</div>
+        <div class="q-pt-md row justify-center">
+          <div class="q-pt-sm q-pr-md" style="width: 80px">Start year</div>
           <div>
             <q-input
               v-model="yearEditStart"
@@ -40,7 +40,7 @@
           </div>
         </div>
         <div class="q-pt-md row justify-center">
-          <div class="q-pt-sm q-pr-md">End year</div>
+          <div class="q-pt-sm q-pr-md" style="width: 80px">End year</div>
           <div>
             <q-input
               v-model="yearEditEnd"
@@ -140,7 +140,7 @@ onMounted(() => {
   height: 240px;
 }
 .btn {
-  background-color: #0f4c8a;
-  color: white;
+  background-color: #ffca4f;
+  color: black;
 }
 </style>

@@ -5,7 +5,6 @@
       <div style="width: 1140px; margin: auto">
         <div class="row justify-between">
           <div class="title">Section 1</div>
-          <div class="cursor-pointer"><u>How do I upload data?</u></div>
         </div>
         <div class="row">
           <div style="width: 600px">

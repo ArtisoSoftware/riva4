@@ -12,7 +12,7 @@
         />
       </div>
       <div class="headBar q-mt-md row q-px-md">
-        <div style="width: 5%">No.</div>
+        <div style="width: 5%" class="text-center">No.</div>
         <div class="col q-px-lg">Economics</div>
         <div style="width: 20%" class="text-center">Date</div>
         <div style="width: 10%" class="text-center">Upload</div>
@@ -177,6 +177,14 @@ const status = (fileNo) => {
   } else {
     return "-";
   }
+};
+const downloadJSONSample = () => {
+  const link = document.createElement("a");
+  link.href = "../../public/Integration overview.json";
+  link.download = "sample.json";
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
 };
 onMounted(() => {
   loadUpdateDate();

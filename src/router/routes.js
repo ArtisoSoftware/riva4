@@ -62,7 +62,10 @@ const routes = [
     path: "/riyear",
     component: () => import("pages/Riyear.vue"),
   },
-
+  {
+    path: "/dataUploadGuide",
+    component: () => import("pages/DataUploadGuide.vue"),
+  },
   // Always leave this as last one,
   // but you can also remove it
   {
